@@ -1,0 +1,5 @@
+{
+  "title": "OrderStatusCard",
+  "description": "Renders the OrderStatusSkill.Card as a rich card inside the agent conversation (Surface #3).",
+  "lightning:type": "@apexClassType/c__OrderStatusSkill$Card"
+}

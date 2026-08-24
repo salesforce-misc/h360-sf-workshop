@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Headless 360 Workshop Access</label>
+    <description>Apex access for the reference-build Skill + Slack action (Headless 360 workshop).</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <!-- Employee-agent access: without this the agent is preview-only and never appears in the
+         Agentforce panel / regular UI. agentName must match the agent's developer_name.
+         (The user also needs CopilotSalesforceUser assigned to see the Agentforce panel at all.) -->
+    <agentAccesses>
+        <agentName>Headless360_Order_Assistant</agentName>
+        <enabled>true</enabled>
+    </agentAccesses>
+    <classAccesses>
+        <apexClass>OrderStatusSkill</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SendSlackCardAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <!-- Required for the Slack callout: the Custom External Credential's Named Principal
+         must be accessible to the running user, or the chat.postMessage callout fails. -->
+    <externalCredentialPrincipalAccesses>
+        <enabled>true</enabled>
+        <externalCredentialPrincipal>Slack_API-Slack_Bot_Principal</externalCredentialPrincipal>
+    </externalCredentialPrincipalAccesses>
+    <!-- Order__c (reference demo object behind OrderStatusSkill) — object + field access.
+         Edit FLS is required to create/seed records; without it the data API returns the
+         misleading "No such column" error on write. -->
+    <objectPermissions>
+        <object>Order__c</object>
+        <allowRead>true</allowRead>
+        <allowCreate>true</allowCreate>
+        <allowEdit>true</allowEdit>
+        <allowDelete>true</allowDelete>
+        <viewAllRecords>true</viewAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
+    </objectPermissions>
+    <!-- Order tab visibility — so the assigned user can open the Order tab and see records
+         (the Module-2 "tour the capability" beat). Without this the tab is hidden even with object access. -->
+    <tabSettings>
+        <tab>Order__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <!-- Status__c + Order_Number__c are required fields — always editable, cannot carry FLS. -->
+    <fieldPermissions>
+        <field>Order__c.Status_Summary__c</field>
+        <readable>true</readable>
+        <editable>true</editable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Order__c.Owner_Name__c</field>
+        <readable>true</readable>
+        <editable>true</editable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Order__c.Next_Action__c</field>
+        <readable>true</readable>
+        <editable>true</editable>
+    </fieldPermissions>
+</PermissionSet>

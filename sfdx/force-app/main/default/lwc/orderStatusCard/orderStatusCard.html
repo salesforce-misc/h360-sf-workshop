@@ -1,0 +1,31 @@
+<template>
+    <lightning-card title="Order Status" icon-name="standard:orders">
+        <div class="slds-p-horizontal_medium slds-p-bottom_small">
+            <template lwc:if={found}>
+                <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Order</dt>
+                    <dd class="slds-item_detail slds-truncate">{orderNumber}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Status</dt>
+                    <dd class="slds-item_detail slds-truncate">{status}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Owner</dt>
+                    <dd class="slds-item_detail slds-truncate">{owner}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Summary</dt>
+                    <dd class="slds-item_detail">{summary}</dd>
+                </dl>
+                <template lwc:if={hasAction}>
+                    <div class="slds-m-top_small">
+                        <lightning-button
+                            variant="brand"
+                            label={availableAction}
+                            title={availableAction}
+                            onclick={handleAction}>
+                        </lightning-button>
+                    </div>
+                </template>
+            </template>
+            <template lwc:else>
+                <p class="slds-text-color_weak">No matching order was found.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,11 @@
+{
+  "title": "OrderStatusWidget",
+  "description": "Order status response card (HXL Mosaic).",
+  "type": "object",
+  "properties": {
+    "attributes": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

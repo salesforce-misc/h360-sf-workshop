@@ -1,0 +1,11 @@
+{
+  "title": "OrderAssistantApp",
+  "description": "Combined order-assistant mini-app: input + response card (HXL Mosaic).",
+  "type": "object",
+  "properties": {
+    "attributes": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

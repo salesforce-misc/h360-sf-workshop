@@ -1,0 +1,18 @@
+{
+  "mode": "workshop",
+  "duration": "2-day",
+  "partner_overlay": "reference",
+  "tracks": {
+    "commercial": { "room": "joint", "format": "presenter-led", "day": 2 },
+    "technical": { "room": "tech", "format": "guided-classroom", "day": 1, "hands_on_build": "reference-skill-in-conversation", "hxl": "conditional-build-or-vision-demo" }
+  },
+  "personas_required_per_partner": ["commercial", "technical"],
+  "surfaces": { "react_in_org": true, "slack": "optional", "agentforce_side_panel": true, "agent_api": true, "hxl_render_everywhere": "vision-demo", "mobile": false },
+  "provisioning": {
+    "needs_org": true,
+    "model": "de-per-team",
+    "self_serve": true,
+    "orgfarm": { "signup_url": "https://orgfarm.salesforce.com/signup", "event_code": "<provided-at-workshop>", "template": "161" },
+    "notes": "Participants self-provision one pre-configured org each via the OrgFarm event code (template 161). Confirm the template ships the required stack (Agentforce, Data 360, Hosted MCP/ECA, HXL/Lightning Types, API v67+) pre-event; verify Agentforce is on before deploy."
+  }
+}

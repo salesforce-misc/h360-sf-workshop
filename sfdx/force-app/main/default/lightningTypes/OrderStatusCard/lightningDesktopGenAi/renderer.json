@@ -1,0 +1,3 @@
+{
+  "renderer": { "componentOverrides": { "$": { "definition": "c/orderStatusCard" } } }
+}

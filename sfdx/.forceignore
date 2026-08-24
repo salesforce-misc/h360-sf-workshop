@@ -1,0 +1,14 @@
+# The compiled agent runtime (Bot + GenAiPlannerBundle) is a BUILD OUTPUT of the
+# `agent publish authoring-bundle` command — the .agent authoring bundle is the source
+# of truth. Ignoring these keeps the publish command (which uses source-tracking) from
+# pulling the compiled graph back into source, which would re-introduce the T11
+# Bot / AiAuthoringBundle DeveloperName collision on a clean deploy.
+# Reference copy of the compiled graph: reference/compiled-agent-runtime/.
+**/bots/**
+**/genAiPlannerBundles/**
+
+# Native React UI Bundle (Multi-Framework) build deps — NEVER deploy node_modules:
+# it's thousands of files (the deploy footgun). The bundle's built dist/ + source deploy;
+# node_modules is rebuilt per machine via `npm install`. Belt-and-suspenders with the
+# bundle-level .forceignore so a scoped deploy stays clean regardless of CLI nesting rules.
+**/node_modules/**

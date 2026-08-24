@@ -1,0 +1,11 @@
+{
+  "title": "OrderAssistant",
+  "description": "Interactive order-lookup agent surface (HXL Mosaic).",
+  "type": "object",
+  "properties": {
+    "attributes": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

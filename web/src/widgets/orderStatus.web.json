@@ -1,0 +1,17 @@
+{
+  "definition": "tile/widget",
+  "children": [
+    { "definition": "tile/card", "children": [
+      { "definition": "tile/row", "children": [
+        { "definition": "tile/text", "attributes": { "text": "Order {{order}}", "variant": "h2" } },
+        { "definition": "tile/badge", "attributes": { "label": "{{status}}" } }
+      ]},
+      { "definition": "tile/text", "attributes": { "text": "{{summary}}", "variant": "body" } },
+      { "definition": "tile/separator" },
+      { "definition": "tile/row", "children": [
+        { "definition": "tile/button", "attributes": { "label": "Approve rebooking", "variant": "primary" } },
+        { "definition": "tile/link", "attributes": { "text": "View in Salesforce ↗", "href": "{{recordUrl}}" } }
+      ]}
+    ]}
+  ]
+}

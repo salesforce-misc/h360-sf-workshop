@@ -1,0 +1,76 @@
+<template>
+    <!-- text -->
+    <template lwc:if={isText}>
+        <p class={textClass}>{text}</p>
+    </template>
+
+    <!-- button (inert in this read-only viewer) -->
+    <template lwc:elseif={isButton}>
+        <button class="slds-button slds-button_neutral hxl-button" disabled>{buttonLabel}</button>
+    </template>
+
+    <!-- badge -->
+    <template lwc:elseif={isBadge}>
+        <span class="slds-badge">{badgeText}</span>
+    </template>
+
+    <!-- separator -->
+    <template lwc:elseif={isSeparator}>
+        <hr class="hxl-separator" />
+    </template>
+
+    <!-- icon (name shown as a chip; avoids invalid-icon-name errors) -->
+    <template lwc:elseif={isIcon}>
+        <span class="slds-badge slds-badge_lightest hxl-icon">◈ {iconName}</span>
+    </template>
+
+    <!-- markdown (raw source in this structural view) -->
+    <template lwc:elseif={isMarkdown}>
+        <pre class="hxl-markdown">{markdownSource}</pre>
+    </template>
+
+    <!-- link -->
+    <template lwc:elseif={isLink}>
+        <a href={linkHref} target="_blank" rel="noopener noreferrer">{linkText}</a>
+    </template>
+
+    <!-- callout: header + optional children -->
+    <template lwc:elseif={isCallout}>
+        <div class="hxl-block hxl-callout">
+            <template lwc:if={calloutTitle}>
+                <div class="hxl-callout-title">{calloutTitle}</div>
+            </template>
+            <template lwc:if={calloutDescription}>
+                <div class="slds-text-body_small">{calloutDescription}</div>
+            </template>
+            <template for:each={kids} for:item="k">
+                <c-mosaic-tile key={k.key} node={k.node}></c-mosaic-tile>
+            </template>
+        </div>
+    </template>
+
+    <!-- container types: wrapper + children -->
+    <template lwc:elseif={isContainer}>
+        <div class={containerClass}>
+            <template for:each={kids} for:item="k">
+                <c-mosaic-tile key={k.key} node={k.node}></c-mosaic-tile>
+            </template>
+        </div>
+    </template>
+
+    <!-- empty node -->
+    <template lwc:elseif={isEmptyNode}>
+        <div class="slds-text-color_weak slds-text-body_small">(empty widget)</div>
+    </template>
+
+    <!-- unknown tile: labeled placeholder, never crash -->
+    <template lwc:else>
+        <div class="hxl-block hxl-unknown">
+            <div class="hxl-unknown-label">Unsupported tile: {unknownLabel}</div>
+            <pre class="hxl-unknown-attrs">{attrsJson}</pre>
+            <template for:each={kids} for:item="k">
+                <c-mosaic-tile key={k.key} node={k.node}></c-mosaic-tile>
+            </template>
+        </div>
+    </template>
+</template>

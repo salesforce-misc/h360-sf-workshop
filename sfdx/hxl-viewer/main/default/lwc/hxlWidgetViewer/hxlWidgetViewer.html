@@ -1,0 +1,106 @@
+<template>
+    <lightning-card title="HXL Widget Viewer" icon-name="standard:apps">
+        <lightning-button
+            slot="actions"
+            label="Refresh"
+            icon-name="utility:refresh"
+            onclick={handleRefresh}
+        ></lightning-button>
+
+        <div class="slds-grid slds-gutters slds-wrap hxl-viewer">
+            <!-- Left: widget picker -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 hxl-list-pane">
+                <div class="slds-text-title_caps slds-p-around_x-small slds-text-color_weak">
+                    Widgets in this org
+                </div>
+
+                <template lwc:if={listError}>
+                    <div class="slds-p-around_small slds-text-color_error">{listError}</div>
+                </template>
+
+                <template lwc:if={hasWidgets}>
+                    <ul class="slds-has-dividers_bottom-space">
+                        <template for:each={widgetItems} for:item="w">
+                            <li
+                                key={w.id}
+                                class={w.itemClass}
+                                data-id={w.id}
+                                data-name={w.name}
+                                onclick={handleSelect}
+                            >
+                                <div class="slds-truncate hxl-widget-name" title={w.name}>
+                                    {w.name}
+                                </div>
+                                <div class="slds-text-body_small slds-text-color_weak slds-truncate">
+                                    {w.apiName} · {w.language}
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+
+                <template lwc:else>
+                    <div class="slds-p-around_small slds-text-color_weak">
+                        No HXL widgets found in this org yet. Deploy one as a
+                        <code>UiWidgetBundle</code>, then Refresh.
+                    </div>
+                </template>
+            </div>
+
+            <!-- Right: preview + JSON -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3 hxl-detail-pane">
+                <template lwc:if={hasSelection}>
+                    <template lwc:if={hasDescription}>
+                        <div class="slds-box slds-box_x-small slds-m-bottom_x-small hxl-description">
+                            <span class="slds-text-title_caps slds-text-color_weak">Description</span>
+                            <p class="slds-text-body_regular">{widgetDescription}</p>
+                        </div>
+                    </template>
+
+                    <div class="slds-tabs_default">
+                        <ul class="slds-tabs_default__nav" role="tablist">
+                            <li class={previewTabClass} role="presentation">
+                                <a class="slds-tabs_default__link" role="tab" onclick={showPreviewTab}>
+                                    Preview
+                                </a>
+                            </li>
+                            <li class={jsonTabClass} role="presentation">
+                                <a class="slds-tabs_default__link" role="tab" onclick={showJsonTab}>
+                                    JSON
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="slds-tabs_default__content slds-p-around_small">
+                            <template lwc:if={loadingBody}>
+                                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                            </template>
+
+                            <template lwc:if={bodyError}>
+                                <div class="slds-text-color_error">{bodyError}</div>
+                            </template>
+
+                            <!-- Preview: structural render -->
+                            <template lwc:if={showPreview}>
+                                <div class="hxl-preview">
+                                    <c-mosaic-tile node={renderBody}></c-mosaic-tile>
+                                </div>
+                            </template>
+
+                            <!-- JSON: raw contentBody -->
+                            <template lwc:if={showJson}>
+                                <pre class="hxl-json">{rawJson}</pre>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <template lwc:else>
+                    <div class="slds-p-around_medium slds-text-color_weak slds-align_absolute-center hxl-empty">
+                        Select a widget to view its structure and Mosaic JSON.
+                    </div>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+</template>

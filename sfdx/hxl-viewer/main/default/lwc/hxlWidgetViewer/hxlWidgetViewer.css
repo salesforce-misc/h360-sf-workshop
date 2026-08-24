@@ -1,0 +1,40 @@
+.hxl-viewer {
+    min-height: 24rem;
+}
+.hxl-list-pane {
+    border-right: 1px solid #e5e5e5;
+}
+.hxl-widget-item {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+}
+.hxl-widget-item:hover {
+    background: #f3f3f3;
+}
+.hxl-widget-item_selected {
+    background: #eef4ff;
+    box-shadow: inset 3px 0 0 0 #0176d3;
+}
+.hxl-widget-name {
+    font-weight: 600;
+}
+.hxl-json {
+    background: #f8fafc;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    max-height: 32rem;
+    overflow: auto;
+    font-family: 'JetBrains Mono', Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    white-space: pre;
+}
+.hxl-preview {
+    border: 1px dashed #e5e5e5;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+.hxl-empty {
+    min-height: 12rem;
+}

@@ -1,0 +1,38 @@
+.notes/
+.superpowers/
+**/__pycache__/
+*.pyc
+.DS_Store
+
+# Local org-test secrets — Consumer Key/Secret, tokens. Never commit.
+docs/H360-Workshop-Org_Test.rtf
+*-Org_Test.rtf
+*.secrets
+# env files — hold live tokens/keys for the web sample
+**/.env
+**/.env.local
+!**/.env.example
+
+# node deps + Vite build output for the web sample
+web/node_modules/
+web/dist/
+
+# Salesforce CLI local state/cache — never commit
+**/.sf/
+**/.sfdx/
+
+
+# UIBundle React build artifacts (2026-08-07 spike + any future uiBundles)
+sfdx/force-app/main/default/uiBundles/**/node_modules/
+sfdx/force-app/main/default/uiBundles/**/dist/
+sfdx/force-app/main/default/uiBundles/**/build/
+
+# UIBundle generated artifacts — GraphQL codegen output + TS build info (regenerated locally)
+sfdx/force-app/main/default/uiBundles/**/tsconfig.tsbuildinfo
+sfdx/force-app/main/default/uiBundles/**/src/api/graphql-operations-types.ts
+# GraphQL schema dump from `npm run graphql:schema` (247k lines, regenerated on demand)
+sfdx/schema.graphql
+
+# proxy runtime log (may reference tokens in errors)
+web/.proxy.log
+web/.vite.log

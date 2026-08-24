@@ -1,0 +1,3 @@
+# Keep shell scripts LF so a Windows (Git Bash / WSL) checkout doesn't CRLF-corrupt them.
+* text=auto
+*.sh text eol=lf

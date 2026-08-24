@@ -1,0 +1,80 @@
+{
+  "type": "lightning__agentforceWidget",
+  "contentBody": {
+    "widgetBody": {
+      "definition": "tile/widget",
+      "children": [
+        {
+          "definition": "tile/text",
+          "attributes": {
+            "text": "Response card: the OrderStatusSkill result (order #, status badge, summary, action + record link) as a surface-agnostic Mosaic widget — the HXL-native twin of the Agentforce/Slack/React cards.",
+            "variant": "caption"
+          }
+        },
+        {
+          "definition": "tile/container",
+          "children": [
+            {
+              "definition": "tile/card",
+              "children": [
+                {
+                  "definition": "tile/row",
+                  "attributes": {
+                    "gap": "sm"
+                  },
+                  "children": [
+                    {
+                      "definition": "tile/text",
+                      "attributes": {
+                        "text": "Order OR-1003",
+                        "variant": "h2"
+                      }
+                    },
+                    {
+                      "definition": "tile/badge",
+                      "attributes": {
+                        "label": "Exception"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "definition": "tile/text",
+                  "attributes": {
+                    "text": "Order OR-1003 hit a carrier exception — address needs confirmation.",
+                    "variant": "body"
+                  }
+                },
+                {
+                  "definition": "tile/separator"
+                },
+                {
+                  "definition": "tile/row",
+                  "attributes": {
+                    "gap": "sm"
+                  },
+                  "children": [
+                    {
+                      "definition": "tile/button",
+                      "attributes": {
+                        "label": "Approve rebooking",
+                        "variant": "primary"
+                      }
+                    },
+                    {
+                      "definition": "tile/link",
+                      "attributes": {
+                        "text": "View in Salesforce ↗",
+                        "href": "https://www.salesforce.com/"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

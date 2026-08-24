@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Emits an API-enabled session id ($Api.Session_ID) so HxlWidgetViewerController can self-callout to the Connect CMS API from Lightning context (the Aura/LWC UserInfo.getSessionId() is not API-enabled).</description>
+    <label>HXL API Session</label>
+</ApexPage>

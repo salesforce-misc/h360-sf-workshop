@@ -1,0 +1,10 @@
+{
+  "orgName": "Headless 360 Workshop (scratch)",
+  "edition": "Developer",
+  "features": [],
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    }
+  }
+}

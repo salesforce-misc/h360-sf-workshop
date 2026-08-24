@@ -1,0 +1,11 @@
+{
+  "title": "HelloWorld",
+  "description": "Hello World test widget (HXL Mosaic).",
+  "type": "object",
+  "properties": {
+    "attributes": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

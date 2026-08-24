@@ -1,0 +1,22 @@
+{
+  "name": "headless360-agent-api-sample",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Reference React client — the Headless 360 Order Skill on the web surface via the headless Agentforce Agent API.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0",
+    "vitest": "^2.1.0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "lightning__agentforceWidget",
+  "contentBody": {
+    "widgetBody": {
+      "definition": "tile/widget",
+      "children": [
+        { "definition": "tile/text", "attributes": { "text": "Hello, Widget!", "variant": "h1" } },
+        { "definition": "tile/text", "attributes": { "text": "Authored as an HXL Mosaic widget and deployed to this org from a UiWidgetBundle.", "variant": "body" } }
+      ]
+    }
+  }
+}

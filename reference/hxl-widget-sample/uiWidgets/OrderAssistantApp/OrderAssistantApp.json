@@ -1,0 +1,157 @@
+{
+  "type": "lightning__agentforceWidget",
+  "contentBody": {
+    "widgetBody": {
+      "definition": "tile/widget",
+      "children": [
+        {
+          "definition": "tile/text",
+          "attributes": {
+            "text": "Combined mini-app: composes the Order Assistant input surface and the Order Status response card into one Mosaic (input on top, status card below). Composition + conditional render are live in the Playground.",
+            "variant": "caption"
+          }
+        },
+        {
+          "definition": "tile/container",
+          "children": [
+            {
+              "definition": "tile/text",
+              "attributes": {
+                "text": "Order Assistant",
+                "variant": "h2"
+              }
+            },
+            {
+              "definition": "tile/row",
+              "attributes": {
+                "gap": "xs"
+              },
+              "children": [
+                {
+                  "definition": "tile/button",
+                  "attributes": {
+                    "label": "OR-1001",
+                    "variant": "secondary"
+                  }
+                },
+                {
+                  "definition": "tile/button",
+                  "attributes": {
+                    "label": "OR-1002",
+                    "variant": "secondary"
+                  }
+                },
+                {
+                  "definition": "tile/button",
+                  "attributes": {
+                    "label": "OR-1003",
+                    "variant": "secondary"
+                  }
+                },
+                {
+                  "definition": "tile/button",
+                  "attributes": {
+                    "label": "OR-1004",
+                    "variant": "secondary"
+                  }
+                },
+                {
+                  "definition": "tile/button",
+                  "attributes": {
+                    "label": "OR-1005",
+                    "variant": "secondary"
+                  }
+                }
+              ]
+            },
+            {
+              "definition": "tile/callout",
+              "attributes": {
+                "title": "Order number",
+                "description": "OR-____ — a live text input in the Playground; the card below renders on submit."
+              }
+            },
+            {
+              "definition": "tile/row",
+              "attributes": {
+                "gap": "sm"
+              },
+              "children": [
+                {
+                  "definition": "tile/button",
+                  "attributes": {
+                    "label": "Check status",
+                    "variant": "primary"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "definition": "tile/separator"
+        },
+        {
+          "definition": "tile/container",
+          "children": [
+            {
+              "definition": "tile/card",
+              "children": [
+                {
+                  "definition": "tile/row",
+                  "attributes": {
+                    "gap": "sm"
+                  },
+                  "children": [
+                    {
+                      "definition": "tile/text",
+                      "attributes": {
+                        "text": "Order OR-1003",
+                        "variant": "h3"
+                      }
+                    },
+                    {
+                      "definition": "tile/badge",
+                      "attributes": {
+                        "label": "Exception"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "definition": "tile/text",
+                  "attributes": {
+                    "text": "Order OR-1003 hit a carrier exception — address needs confirmation.",
+                    "variant": "body"
+                  }
+                },
+                {
+                  "definition": "tile/row",
+                  "attributes": {
+                    "gap": "sm"
+                  },
+                  "children": [
+                    {
+                      "definition": "tile/button",
+                      "attributes": {
+                        "label": "Approve rebooking",
+                        "variant": "primary"
+                      }
+                    },
+                    {
+                      "definition": "tile/link",
+                      "attributes": {
+                        "text": "View in Salesforce ↗",
+                        "href": "https://www.salesforce.com/"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
