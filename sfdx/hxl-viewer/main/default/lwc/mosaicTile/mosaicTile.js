@@ -100,7 +100,8 @@ export default class MosaicTile extends LightningElement {
             'tile/container',
             'tile/card',
             'tile/list',
-            'tile/listitem'
+            'tile/listitem',
+            'tile/accordion'
         ].includes(this.def);
     }
     get containerClass() {
@@ -113,12 +114,36 @@ export default class MosaicTile extends LightningElement {
                 return 'hxl-block hxl-list';
             case 'tile/listitem':
                 return 'hxl-block hxl-listitem';
+            case 'tile/accordion':
+                return 'hxl-block hxl-accordion';
             case 'tile/column':
             case 'tile/widget':
             case 'tile/container':
             default:
                 return 'slds-grid slds-grid_vertical hxl-block hxl-col';
         }
+    }
+
+    // --- accordion item (header: title/icon/subtitle + children) ----------
+    // Spec definition is `tile/accordionitem`; payloads seen in the wild also
+    // use `tile/accordionItem` — match case-insensitively so neither slips
+    // through to the "unsupported" branch.
+    get isAccordionItem() {
+        return this.def.toLowerCase() === 'tile/accordionitem';
+    }
+    get accordionTitle() {
+        return this.attrs.title;
+    }
+    get accordionSubtitle() {
+        return this.attrs.subtitle;
+    }
+    get accordionIconName() {
+        return this.attrs.iconName;
+    }
+    // read-only structural view shows children regardless; the caret just
+    // reflects the authored initial state (isExpanded, default false).
+    get accordionCaret() {
+        return this.attrs.isExpanded ? '▾' : '▸';
     }
 
     // --- unknown ----------------------------------------------------------
@@ -132,7 +157,8 @@ export default class MosaicTile extends LightningElement {
             this.isMarkdown ||
             this.isLink ||
             this.isCallout ||
-            this.isContainer
+            this.isContainer ||
+            this.isAccordionItem
         );
     }
     get isUnknown() {

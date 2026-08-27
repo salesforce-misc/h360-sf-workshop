@@ -49,6 +49,29 @@
         </div>
     </template>
 
+    <!-- accordion item: clickable-style header (title/icon/subtitle) + children -->
+    <template lwc:elseif={isAccordionItem}>
+        <div class="hxl-block hxl-accordion-item">
+            <div class="hxl-accordion-header">
+                <span class="hxl-accordion-caret">{accordionCaret}</span>
+                <template lwc:if={accordionIconName}>
+                    <span class="slds-badge slds-badge_lightest hxl-icon">◈ {accordionIconName}</span>
+                </template>
+                <span class="hxl-accordion-title">{accordionTitle}</span>
+            </div>
+            <template lwc:if={accordionSubtitle}>
+                <div class="slds-text-body_small slds-text-color_weak hxl-accordion-subtitle">
+                    {accordionSubtitle}
+                </div>
+            </template>
+            <div class="hxl-accordion-body">
+                <template for:each={kids} for:item="k">
+                    <c-mosaic-tile key={k.key} node={k.node}></c-mosaic-tile>
+                </template>
+            </div>
+        </div>
+    </template>
+
     <!-- container types: wrapper + children -->
     <template lwc:elseif={isContainer}>
         <div class={containerClass}>
