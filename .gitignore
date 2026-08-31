@@ -36,3 +36,6 @@ sfdx/schema.graphql
 # proxy runtime log (may reference tokens in errors)
 web/.proxy.log
 web/.vite.log
+
+# Kept local only — internal pre-publication tracking, not for the public repo
+PRE-PUBLICATION-CHECKLIST.md
