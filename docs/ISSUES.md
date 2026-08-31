@@ -28,10 +28,10 @@ Revealing a Consumer Key/Secret can loop on **identity-verification**, fail **"i
 ## Setup / onboarding
 | Symptom | Cause → fix |
 |---|---|
-| `06-org-onboard.sh` prints `WARN: permset assign failed` | The permset is **already assigned** (a re-run) — non-fatal; the final "onboarded" line confirms success. |
+| `onboard.sh` prints `WARN: permset assign failed` | The permset is **already assigned** (a re-run) — non-fatal; the final "onboarded" line confirms success. |
 | Agent won't deploy — "Not available for deploy" | Agentforce isn't fully on. Enable it (Setup → Agentforce) and **wait ~1–2 min** — `Bot`/agent metadata materializes async. |
-| Agent answers "No order matches OR-1003" | Hero data not seeded — run `./scripts/05-seed-hero-data.sh --org <alias>` (after the permset is assigned, so FLS is in place). |
-| No fields / no Orders tab | The permset isn't assigned to **this** user — `./scripts/03-assign-perms.sh` (Order__c FLS + tab visibility live in the permset). |
+| Agent answers "No order matches OR-1003" | Hero data not seeded — run `./scripts/steps/seed-hero-data.sh --org <alias>` (after the permset is assigned, so FLS is in place). |
+| No fields / no Orders tab | The permset isn't assigned to **this** user — `./scripts/steps/assign-perms.sh` (Order__c FLS + tab visibility live in the permset). |
 
 ## MCP / Claude (Module 3 · 3a)
 | Symptom | Cause → fix |
@@ -47,7 +47,7 @@ Revealing a Consumer Key/Secret can loop on **identity-verification**, fail **"i
 ## Agent API / React (Module 4)
 | Symptom | Cause → fix |
 |---|---|
-| Blank chat / "Order Assistant unavailable" (4a) | `VITE_AGENT_ID` built for a different org — re-run `07-deploy-react-bundle.sh` against **this** org. Cold start (first load/reply) is slow, not broken — wait. |
+| Blank chat / "Order Assistant unavailable" (4a) | `VITE_AGENT_ID` built for a different org — re-run `deploy-react-app.sh` against **this** org. Cold start (first load/reply) is slow, not broken — wait. |
 | `401` / empty from the web card (4b) | **Expired/wrong token** — mint a fresh one into `web/.env` and **restart `node proxy.mjs`** (it reads `.env` at startup). |
 | Session-start **412** | Assign the **agent-access permset** to the Run-As user; confirm the agent is published + activated. |
 | **400 "Invalid user ID"** | `bypassUser` wrong for an Employee agent → set **`bypassUser:false`**. |

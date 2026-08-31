@@ -27,7 +27,7 @@ Owner: Brandon Stauber (bstauber@salesforce.com).
   an `author`.
 - [ ] **Remove `how_to_license.md`** — it's Salesforce OSS *setup instructions*, not project content. Delete before publish.
 - [ ] **`README.md` polish** — replaced with the workshop README; give it a final pass for a public/self-guided audience
-  (currently still references a facilitator in places — see self-guided items below).
+  (facilitator references now removed in the self-guided pass — see below).
 - [ ] **Final secret + link sweep** on the exact publish commit (baseline scan was clean; re-run at release).
 
 ## 🟢 Self-guided variant — content changes (the main functional delta)
@@ -35,12 +35,14 @@ Owner: Brandon Stauber (bstauber@salesforce.com).
 This repo is a **self-guided** version of the facilitator-led participant lab. Content is ~identical; the largest
 difference is **org provisioning** (no facilitator handing out an event code). Tracked on the `self-guided` branch.
 
-- [ ] **Org provisioning rewrite** — `README.md` + `docs/setup.md`: replace "event code from your facilitator" /
-  facilitator-led OrgFarm claim with a **self-serve** signup flow. Confirm the self-serve path + template availability.
-- [ ] **Remove facilitator-dependent beats** — e.g. `docs/modules/08a-external-mcp.md` ("Grab a facilitator when you're
-  ready…"); rewrite for a solo learner.
+- [x] **Org provisioning rewrite** — `README.md` + `docs/setup.md` reframed to **self-serve**: create your own org from
+  **template `0TTHo0000036iOl`** (Environment Hub / Dev Hub), no OrgFarm / event-code / facilitator; keep activate-Agentforce
+  (installed but not active); Data 360 not needed. ⚠️ **Still confirm the exact create-from-template steps** for the EH + Dev Hub paths.
+- [x] **Remove facilitator-dependent beats** — `docs/modules/08a-external-mcp.md` ("Grab a facilitator…") rewritten for a
+  solo learner; also swept "OrgFarm" / "facilitator" / "pre-provisioned" across `OVERVIEW.md`, `docs/build-and-deploy.md`,
+  `docs/reference/tool-reference.md`, `docs/modules/08-package.md`.
 - [ ] **Facilitator-only assets** — decide what to omit (e.g. the HXL Widget Viewer is facilitator/demo-only via
-  `scripts/08-deploy-hxl-widget-viewer.sh`, which is not in the participant path).
+  `scripts/deploy-hxl-viewer.sh`, which is not in the participant path).
 
 ## ❓ Open questions
 

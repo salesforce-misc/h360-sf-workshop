@@ -3,7 +3,7 @@
 The deployable core of the reference build: **one Employee Agent** (built in Agentforce Studio — see below) + one
 Apex `@InvocableMethod` Skill, surfaced across three surfaces.
 
-Deploy: `../scripts/02-deploy.sh --org <alias>` then `../scripts/03-assign-perms.sh --org <alias>`.
+Deploy: `../scripts/steps/deploy.sh --org <alias>` then `../scripts/steps/assign-perms.sh --org <alias>`.
 
 ## What's here (static metadata)
 - `objects/Order__c/` — the reference demo object the Skill queries (fields: `Order_Number__c` ext-id, `Status__c` picklist,
@@ -18,7 +18,7 @@ Deploy: `../scripts/02-deploy.sh --org <alias>` then `../scripts/03-assign-perms
 - `aiAuthoringBundles/Headless360_Order_Assistant/` — **the agent, as Agent Script** (`.agent` bundle) — the **source of
   truth**, built with the `agentforce-adlc` skill; NOT UI-authored. The **compiled runtime** (`Bot` + `GenAiPlannerBundle`)
   is a **build output of `sf agent publish`** and is **deliberately NOT in source** — shipping it alongside the bundle
-  collides on a fresh deploy (Bot + AiAuthoringBundle share a DeveloperName namespace). `02-deploy.sh` handles
+  collides on a fresh deploy (Bot + AiAuthoringBundle share a DeveloperName namespace). `steps/deploy.sh` handles
   the deploy → publish → activate → permset sequence.
 - `lightningTypes/OrderStatusCard/` — the CLT (`LightningTypeBundle`): schema + renderer LWC (rich in-conversation card, LEX).
 - `namedCredentials/` + `externalCredentials/` — `Slack_API` wiring: a **Custom External Credential + bearer bot token**
@@ -30,9 +30,9 @@ Deploy: `../scripts/02-deploy.sh --org <alias>` then `../scripts/03-assign-perms
 - `permissionsets/Headless360_Workshop_Access` — Apex + Order__c object/FLS + Order-tab visibility + External Credential principal access.
 
 ## Deploy + seed
-1. **One command (recommended):** `../scripts/06-org-onboard.sh --org <alias>` — guards Agentforce-enabled, then runs 02 → 03 → 05 → smoke. (Prereq: enable Agentforce on the org first — see [../docs/setup.md](../docs/setup.md).) Or run the steps by hand: `../scripts/02-deploy.sh --org <alias>` → `../scripts/03-assign-perms.sh --org <alias>` → `../scripts/05-seed-hero-data.sh --org <alias>` (02 creates `Order__c` but does **not** seed data — 05 is a separate required step).
+1. **One command (recommended):** `../scripts/onboard.sh --org <alias>` — guards Agentforce-enabled, then runs 02 → 03 → 05 → smoke. (Prereq: enable Agentforce on the org first — see [../docs/setup.md](../docs/setup.md).) Or run the steps by hand: `../scripts/steps/deploy.sh --org <alias>` → `../scripts/steps/assign-perms.sh --org <alias>` → `../scripts/steps/seed-hero-data.sh --org <alias>` (02 creates `Order__c` but does **not** seed data — 05 is a separate required step).
    (Or just the agent bundle: `sf project deploy start --metadata AiAuthoringBundle:Headless360_Order_Assistant`.)
-2. Seed hero records (5 orders): `../scripts/05-seed-hero-data.sh --org <alias>` (idempotent upsert of OR-1001..OR-1005, incl. the OR-1003 exception; run AFTER 03 so the permset FLS is in place). The object ships an **All Orders** list view, so the seeded rows show on the tab immediately.
+2. Seed hero records (5 orders): `../scripts/steps/seed-hero-data.sh --org <alias>` (idempotent upsert of OR-1001..OR-1005, incl. the OR-1003 exception; run AFTER 03 so the permset FLS is in place). The object ships an **All Orders** list view, so the seeded rows show on the tab immediately.
 3. Publish + activate the agent: `sf agent publish authoring-bundle --api-name Headless360_Order_Assistant` → `sf agent activate --api-name Headless360_Order_Assistant`.
 
 ## Built/configured in the org (not deployable secrets) — GUIDE Modules 2–6

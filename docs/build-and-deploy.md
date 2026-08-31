@@ -24,7 +24,7 @@ org** (Agentforce + Hosted MCP + reference build deployed). A **Slack workspace 
 ## 0. One-time setup
 
 ```bash
-sf org login web --alias <your-alias>       # your workshop org (OrgFarm template 161)
+sf org login web --alias <your-alias>       # your workshop org (from template 0TTHo0000036iOl)
 cd sfdx && sf config set target-org <your-alias>   # agent CLI runs from the DX project dir
 ```
 Confirm the reference build is present: `sf data query -q "SELECT Order_Number__c, Status__c FROM Order__c ORDER BY Order_Number__c"` → 5 rows (OR-1001..OR-1005). If empty, deploy + seed per [sfdx/README.md](../sfdx/README.md).
@@ -60,7 +60,7 @@ object; the Request/Response contract stays the same.
 - **CHECK** "Issue JWT-based access tokens for named users" (else `INVALID_JWT_FORMAT`).
 - 🔴 **Launch Claude Code from the project directory** — the h360 MCP servers are project-scoped in `~/.claude.json`;
   from a parent dir `/mcp` shows no server.
-- Helper: `./scripts/04-mcp-connect-setup.sh --org <alias>` prints an exact-values ECA card; `--verify` confirms.
+- Helper: `./scripts/connect-mcp.sh --org <alias>` prints an exact-values ECA card; `--verify` confirms.
 - **Test:** in Claude, `read order OR-1003 from Salesforce` → real data, running as the signed-in user (FLS/sharing enforced).
 
 ---
@@ -154,7 +154,7 @@ npm run dev           # terminal 2 → http://localhost:5173 → "Ask the agent"
 Deploy the `LightningTypeBundle` and bind it to the Skill's Apex output so the agent renders a rich card in LEX instead
 of plain text. `sf project deploy start --metadata LightningTypeBundle:OrderStatusCard`. (Apex-based CLTs also render on
 Enhanced Chat v2 + Mobile — no longer LEX-only.) This is the partner-buildable on-ramp to the HXL "render everywhere"
-vision (shown as a facilitator demo, not built live).
+vision (shown as a demo, not built live).
 
 ---
 

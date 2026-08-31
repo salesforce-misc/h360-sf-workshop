@@ -5,7 +5,7 @@
 #     permset assigned · hero data · the REAL Skill returns OR-1003 · (opt) Apex tests.
 #   MANUAL (printed checklist): the browser/MCP/Slack steps the CLI can't verify.
 #
-# Run anytime after ./scripts/06-org-onboard.sh. Read-only except a transient
+# Run anytime after ./scripts/onboard.sh. Read-only except a transient
 # Order__c query — safe to re-run. Exits non-zero if any mechanical check fails.
 #
 # Usage: ./scripts/smoke.sh --org <alias> [--with-tests]
@@ -32,14 +32,14 @@ ROWS="$(sf data query --target-org "$ORG" \
   --query "SELECT Order_Number__c FROM Order__c WHERE Order_Number__c LIKE 'OR-100%'" --json 2>/dev/null \
   | grep -o '"Order_Number__c"' | wc -l | tr -d ' ')"
 [ "${ROWS:-0}" -ge 5 ] && pass "hero data: $ROWS orders (OR-1001..OR-1005)" \
-  || { fail "hero data missing (${ROWS:-0} rows) — ./scripts/05-seed-hero-data.sh --org $ORG"; FAILED=1; }
+  || { fail "hero data missing (${ROWS:-0} rows) — ./scripts/steps/seed-hero-data.sh --org $ORG"; FAILED=1; }
 
 # 4. permset assigned (any assignee — each participant owns their org)
 PSA="$(sf data query --target-org "$ORG" \
   --query "SELECT Assignee.Username FROM PermissionSetAssignment WHERE PermissionSet.Name='Headless360_Workshop_Access'" --json 2>/dev/null \
   | grep -o '"Username"' | wc -l | tr -d ' ')"
 [ "${PSA:-0}" -ge 1 ] && pass "permset 'Headless360_Workshop_Access' assigned ($PSA user/s)" \
-  || { fail "permset not assigned — ./scripts/03-assign-perms.sh --org $ORG"; FAILED=1; }
+  || { fail "permset not assigned — ./scripts/steps/assign-perms.sh --org $ORG"; FAILED=1; }
 
 # 5. agent deployed
 BOTS="$(sf data query --target-org "$ORG" \
@@ -81,7 +81,7 @@ cat <<EOF
   [ ] App Launcher → Orders → the All Orders list view shows 5 rows (OR-1003 = Exception)
   [ ] Agent Builder → 'Headless360 Order Assistant' opens; ask "status of order OR-1003"
         → returns the real record (carrier exception, Approve rebooking)
-  [ ] Module 3 — Hosted MCP + ECA (run ./scripts/04-mcp-connect-setup.sh --org $ORG):
+  [ ] Module 3 — Hosted MCP + ECA (run ./scripts/connect-mcp.sh --org $ORG):
         [ ] MCP servers activated (Setup → API Catalog → MCP Servers)
         [ ] ECA created with JWT-token toggle ON + PKCE (the INVALID_JWT_FORMAT gotcha)
         [ ] in Claude: "read order OR-1003 from Salesforce" → real data (not just a green dot)

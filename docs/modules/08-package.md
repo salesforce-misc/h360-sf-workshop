@@ -36,9 +36,9 @@ Each partner demos their forked cross-surface capability: **one capability, reac
 
 ## Appendix — Scratch org for local dev (what it can and can't validate)
 
-The workshop provisions each participant an **OrgFarm template org** because it carries the
+You create your workshop org from the **template `0TTHo0000036iOl`** because it carries the
 preview/beta features the full build needs. If you want a **throwaway org for local iteration**
-(base capability + your React/LWC work) without burning an OrgFarm org, the kit ships a scratch
+(base capability + your React/LWC work) without spinning up another template org, the kit ships a scratch
 definition at [`sfdx/config/project-scratch-def.json`](../../sfdx/config/project-scratch-def.json):
 
 ```bash
@@ -47,17 +47,17 @@ sf org create scratch --definition-file sfdx/config/project-scratch-def.json \
 ```
 
 **What a standard scratch org validates (tested 2026-08-24, Developer edition, no add-on features):**
-- ✅ The **base capability** — Apex (`OrderStatusSkill`, `SendSlackCardAction`), `Order__c` + tab, `lightningTypes`, LWC, named credentials (17/19 components of the `02-deploy` base set).
-- ✅ The **HXL Widget Viewer** package (`hxl-viewer/` — Apex + LWCs + FlexiPage + Tab + App + permset) deploys clean via `./scripts/08-deploy-hxl-widget-viewer.sh`.
+- ✅ The **base capability** — Apex (`OrderStatusSkill`, `SendSlackCardAction`), `Order__c` + tab, `lightningTypes`, LWC, named credentials (17/19 components of the `steps/deploy` base set).
+- ✅ The **HXL Widget Viewer** package (`hxl-viewer/` — Apex + LWCs + FlexiPage + Tab + App + permset) deploys clean via `./scripts/deploy-hxl-viewer.sh`.
 - ✅ Good for local Apex/LWC/React dev and for a cold-start sanity check of the base deploy ordering.
 
-**What a standard scratch org can NOT host — you need the OrgFarm template org:**
-- ❌ **The Agentforce agent** — `AiAuthoringBundle` fails with *"Not available for deploy for this organization,"* so `02-deploy`'s agent-publish step (Module 2) can't run.
+**What a standard scratch org can NOT host — you need the workshop template org (`0TTHo0000036iOl`):**
+- ❌ **The Agentforce agent** — `AiAuthoringBundle` fails with *"Not available for deploy for this organization,"* so `steps/deploy`'s agent-publish step (Module 2) can't run.
 - ❌ **HXL widgets** — `UiWidgetBundle` fails the same way, so the Module 4c reference-widget deploy (`--metadata-dir reference/hxl-widget-sample`) won't land.
 
 Both are gated features that aren't exposed as scratch-definition `features`; enabling them requires an org
-that ships them (the workshop's OrgFarm template). **Use a scratch org for base/dev iteration; use your
-OrgFarm org for the full Agentforce + HXL path.** If a future scratch feature enables either, add it to the
+that ships them (the workshop template `0TTHo0000036iOl`). **Use a scratch org for base/dev iteration; use your
+workshop template org for the full Agentforce + HXL path.** If a future scratch feature enables either, add it to the
 `features` array in the definition file above.
 
 ---

@@ -8,7 +8,7 @@
  * - getWidgetBody(): the widget body JSON is NOT a SOQL field and ConnectApi channel reads
  *   return nothing for unpublished/draft widgets, so we self-callout to the Connect authoring
  *   REST endpoint (returns the full contentBody, incl. drafts). Requires a RemoteSiteSetting
- *   for the org My Domain — provisioned per-org by scripts/08-deploy-hxl-widget-viewer.sh.
+ *   for the org My Domain — provisioned per-org by scripts/deploy-hxl-viewer.sh.
  */
 public with sharing class HxlWidgetViewerController {
 
@@ -59,7 +59,7 @@ public with sharing class HxlWidgetViewerController {
             throw new AuraHandledException(
                 'Connect CMS API returned ' + res.getStatusCode()
                 + '. If this is a callout error, confirm the RemoteSiteSetting for this org '
-                + '(scripts/08-deploy-hxl-widget-viewer.sh provisions it).');
+                + '(scripts/deploy-hxl-viewer.sh provisions it).');
         }
         return res.getBody();
     }

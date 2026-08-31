@@ -114,7 +114,7 @@ cp .env.example .env      # then set:
 #   VITE_ACCESS_TOKEN=<access_token from step 4>
 #   SF_CLIENT_SECRET=<CONSUMER_SECRET>
 #   VITE_HXL_VIEWER_URL=/lightning/n/HXL_Widget_Viewer   # OPTIONAL — only if the in-org
-#     HXL Widget Viewer is deployed (scripts/08-deploy-hxl-widget-viewer.sh). Empty → the
+#     HXL Widget Viewer is deployed (scripts/deploy-hxl-viewer.sh). Empty → the
 #     HXL panel's "Open HXL Widget Viewer" footer link is hidden.
 ```
 

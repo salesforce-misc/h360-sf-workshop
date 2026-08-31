@@ -8,9 +8,9 @@
 # ECA step to confirm it landed. No deletes; safe to re-run (idempotent).
 #
 # Usage:
-#   ./scripts/04-mcp-connect-setup.sh --org <alias>            # run the setup + print the guided ECA card
-#   ./scripts/04-mcp-connect-setup.sh --org <alias> --verify   # verify the org is Connect-ready (post-ECA)
-#   ./scripts/04-mcp-connect-setup.sh --org <alias> --no-deploy # skip the metadata deploy (already deployed)
+#   ./scripts/connect-mcp.sh --org <alias>            # run the setup + print the guided ECA card
+#   ./scripts/connect-mcp.sh --org <alias> --verify   # verify the org is Connect-ready (post-ECA)
+#   ./scripts/connect-mcp.sh --org <alias> --no-deploy # skip the metadata deploy (already deployed)
 #
 # See PARTICIPANT-SETUP.md and GUIDE.md Module 3 for the why.
 set -uo pipefail
@@ -80,7 +80,7 @@ if [ "$VERIFY" -eq 1 ]; then
   if [ "${ASSIGNED:-0}" -ge 1 ]; then
     pass "permset '$PERMSET' assigned (assignments: $ASSIGNED)"
   else
-    warn "permset '$PERMSET' not assigned yet — deploy the reference build + assign (02-deploy.sh / 03-assign-perms.sh)"
+    warn "permset '$PERMSET' not assigned yet — deploy the reference build + assign (steps/deploy.sh / steps/assign-perms.sh)"
   fi
   echo "  ⓘ MCP server activation + the JWT-token toggle can't be read via CLI — confirm in the UI:"
   echo "    • Setup → API Catalog → MCP Servers → Salesforce Servers: $MCP_SERVERS active"
@@ -91,14 +91,14 @@ fi
 
 # ============================ SETUP MODE ============================
 # 1) Deploy the reference build (idempotent) unless told to skip.
-#    Delegates to 02-deploy.sh — the 3-phase sequence (metadata → agent publish+activate →
+#    Delegates to steps/deploy.sh — the 3-phase sequence (metadata → agent publish+activate →
 #    permset last). A wholesale `sf project deploy start --source-dir force-app` would FAIL here:
 #    the permset's <agentAccesses> only resolves after the agent is published (KNOWN-GAPS T11),
-#    and this helper doesn't publish. Always go through 02-deploy.sh so the order is correct.
+#    and this helper doesn't publish. Always go through steps/deploy.sh so the order is correct.
 if [ "$DO_DEPLOY" -eq 1 ]; then
   if [ -d "$ROOT/sfdx/force-app" ]; then
-    echo "--- Deploy reference build (3-phase via 02-deploy.sh) → $ORG ---"
-    "$ROOT/scripts/02-deploy.sh" --org "$ORG" \
+    echo "--- Deploy reference build (3-phase via steps/deploy.sh) → $ORG ---"
+    "$ROOT/scripts/steps/deploy.sh" --org "$ORG" \
       && pass "reference build deployed" \
       || warn "deploy failed — check output; if a prior deploy was interrupted, run: sf org list metadata -m AiAuthoringBundle (orphan-bundle gotcha)"
   else
@@ -111,11 +111,11 @@ fi
 # 2) Assign the workshop permset (idempotent).
 sf org assign permset --name "$PERMSET" --target-org "$ORG" >/dev/null 2>&1 \
   && pass "permset '$PERMSET' assigned" \
-  || warn "permset '$PERMSET' not newly assigned — already assigned (fine), or deploy the reference build first (02-deploy.sh)"
+  || warn "permset '$PERMSET' not newly assigned — already assigned (fine), or deploy the reference build first (steps/deploy.sh)"
 
 # 3) Guided External Client App card — the WORKSHOP PATH (manual, per org).
 #    The ECA is a per-org Module 3 step: create it from the card below. It is NOT in the base
-#    deploy (02-deploy.sh) because it's org-scoped — <orgScopedExternalApp> needs the TARGET
+#    deploy (steps/deploy.sh) because it's org-scoped — <orgScopedExternalApp> needs the TARGET
 #    org's own Id, so it can't be a static committed artifact.
 #    On the metadata-deploy path (externalClientApps/ + extlClntApp*/): it exists and once
 #    deployed cross-org in testing, BUT the committed file carries a SCRUBBED placeholder org Id
@@ -160,6 +160,6 @@ cat <<EOF
    → restart Claude, then /mcp → h360 → Authenticate → approve the tool prompts → ask "read order OR-1003"
    (sandbox/scratch org: insert /sandbox/ before platform/headless-360)
 
- Verify when done:  ./scripts/04-mcp-connect-setup.sh --org $ORG --verify
+ Verify when done:  ./scripts/connect-mcp.sh --org $ORG --verify
 ──────────────────────────────────────────────────────────────────────────────
 EOF

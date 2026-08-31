@@ -16,13 +16,13 @@ There are two ways to give the agent a custom front-end, and this module builds 
 The kit ships the **`Headless360_OrderStatus` UI Bundle** — a native React app running *on* the platform, embedding the Order Assistant chat. It's a subsequent deploy step (not in base onboarding — it needs an `npm` build + a large `node_modules`, which is `.forceignore`d). Run it **after** the agent is published:
 
 ```bash
-./scripts/07-deploy-react-bundle.sh --org <alias>
+./scripts/deploy-react-app.sh --org <alias>
 ```
 
 It queries the org's `BotDefinition` Id → bakes **`VITE_AGENT_ID`** at build time → `npm run build` → scoped-deploys the UI Bundle + its surfacing **CustomApplication** + the **`Headless360_React_App`** permset (and assigns it). Then **App Launcher → "Headless360 Order Status"** → the React app renders with the embedded **Order Assistant** chat; ask "status of order OR-1003" → the same Exception / "Approve rebooking" from Module 2, now in a custom React shell in the org.
 
 ### 🔴 Checkpoint 4a
-The app appears in App Launcher and the embedded chat answers on OR-1003. ⏳ Expect a **cold start** — the first load *and* the agent's first reply can take several seconds; wait, it's not a failure, and later calls are fast. A **persistent blank chat / "Order Assistant unavailable"** (not just slow) → `VITE_AGENT_ID` was built for a different org (or not set) — re-run `07-deploy-react-bundle.sh` against **this** org (it re-bakes the id). No tokens involved — the in-org client runs as you.
+The app appears in App Launcher and the embedded chat answers on OR-1003. ⏳ Expect a **cold start** — the first load *and* the agent's first reply can take several seconds; wait, it's not a failure, and later calls are fast. A **persistent blank chat / "Order Assistant unavailable"** (not just slow) → `VITE_AGENT_ID` was built for a different org (or not set) — re-run `deploy-react-app.sh` against **this** org (it re-bakes the id). No tokens involved — the in-org client runs as you.
 
 ---
 
@@ -103,7 +103,7 @@ The kit ships a ready-to-deploy widget bundle at [`reference/hxl-widget-sample/`
 **a. Deploy the HXL Widget Viewer (once per org).** A small LWC "view kit" to browse the org's widgets and inspect each one's structure + raw Mosaic JSON:
 
 ```bash
-./scripts/08-deploy-hxl-widget-viewer.sh --org <alias>
+./scripts/deploy-hxl-viewer.sh --org <alias>
 ```
 
 It provisions a per-org `RemoteSiteSetting` (the viewer reads a draft widget's body via an Apex self-callout to the Connect authoring REST API), deploys the viewer metadata (Apex + 2 LWCs + FlexiPage/Tab/App), and assigns the `HXL_Widget_Viewer_Access` permset.

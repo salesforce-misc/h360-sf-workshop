@@ -12,7 +12,7 @@
 # Idempotent: safe to re-run. Does NOT do the per-org MCP activation / ECA
 # (Module 3 — the manual teaching step) or the Slack token (Module 5).
 #
-# Usage: ./scripts/06-org-onboard.sh --org <alias>
+# Usage: ./scripts/onboard.sh --org <alias>
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 . "$ROOT/scripts/lib/common.sh"
@@ -40,9 +40,9 @@ fi
 pass "Agentforce enabled (Bot + AiAuthoringBundle present)"
 
 # --- step 3c: deploy + perms + seed -------------------------------------------
-"$ROOT/scripts/02-deploy.sh"       --org "$ORG" || { fail "deploy (02) failed"; exit 1; }
-"$ROOT/scripts/03-assign-perms.sh" --org "$ORG" || { fail "permset assign (03) failed"; exit 1; }
-"$ROOT/scripts/05-seed-hero-data.sh" --org "$ORG" || { fail "hero-data seed (05) failed"; exit 1; }
+"$ROOT/scripts/steps/deploy.sh"       --org "$ORG" || { fail "deploy (02) failed"; exit 1; }
+"$ROOT/scripts/steps/assign-perms.sh" --org "$ORG" || { fail "permset assign (03) failed"; exit 1; }
+"$ROOT/scripts/steps/seed-hero-data.sh" --org "$ORG" || { fail "hero-data seed (05) failed"; exit 1; }
 
 # --- step 4: basic smoke test --------------------------------------------------
 echo "--- smoke test ---"
@@ -98,6 +98,6 @@ fi
 echo "──────────────────────────────────────────────────────────────────────"
 pass "org '$ORG' onboarded: kit deployed, permset assigned, hero data seeded."
 echo "  Next (manual, Module 3 teaching steps — not scripted):"
-echo "   • Activate Hosted MCP servers + create the MCP ECA:  ./scripts/04-mcp-connect-setup.sh --org $ORG"
+echo "   • Activate Hosted MCP servers + create the MCP ECA:  ./scripts/connect-mcp.sh --org $ORG"
 echo "   • Then smoke-test the agent: in Agent Builder / Slack, ask \"status of order OR-1003\""
 echo "──────────────────────────────────────────────────────────────────────"

@@ -46,7 +46,7 @@
 
 Your tools register (`sf agent mcp list` shows the server + tools) and the agent can call them. Remember the PIU trap: the agent's runtime callout runs as the Platform Integration User, so a passing curl or MCP Workbench test proves *your* access, not the *agent's* — the PIU permission-set grant in step 4 is what closes that gap.
 
-Grab a facilitator when you're ready to wire this into your POV.
+When you're ready, wire this into a POV of your own capability.
 
 ---
 

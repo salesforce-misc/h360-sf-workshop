@@ -2,16 +2,16 @@
 
 Setup is **two ordered parts**:
 
-1. **[Pre-work](#part-1--pre-work-before-you-arrive)** — install the toolchain (do this **before** the workshop). Has a 🍎 **Mac** and a 🪟 **Windows** path.
-2. **[Org provisioning](#part-2--make-your-org-yours)** — log in → change email → turn on Agentforce → onboard → smoke.
+1. **[Pre-work](#part-1--pre-work-before-you-start)** — install the toolchain (do this **before** you start building). Has a 🍎 **Mac** and a 🪟 **Windows** path.
+2. **[Org provisioning](#part-2--make-your-org-yours)** — create your org → activate Agentforce → onboard → smoke.
 
 > When a command fails, don't re-read this page — flip to **[ISSUES.md](./ISSUES.md)**.
 
 ---
 
-## Part 1 — Pre-work (before you arrive)
+## Part 1 — Pre-work (before you start)
 
-> ⚠️ **Do not configure on-site.** The tech day is compressed; if your laptop isn't ready you'll spend the morning installing instead of building. Complete this ~1 week ahead.
+> ⚠️ **Do the pre-work before you start building.** Getting the toolchain in place first keeps the build modules smooth. It's a one-time setup.
 
 Install and verify four things: **Node.js**, the **Salesforce CLI (`sf`)**, **Claude Code**, and two Claude Code **plugins**.
 
@@ -71,28 +71,35 @@ In Claude Code:
 
 ## Part 2 — Make your org yours
 
-Your workshop org is pre-provisioned (OrgFarm). Claim it, make it yours, then onboard the kit. ~10 minutes.
+You'll **create your own workshop org** from the Headless 360 org template, activate Agentforce, then onboard the kit. ~15 minutes.
 
-### Step 1 — Log in
+### Step 1 — Create your workshop org
 
-1. Claim your org with the **event code + sign-up form** your facilitator provides. Default org password: **`orgfarm1234`**.
-2. Note your org's My Domain URL. This is the account you'll authenticate the CLI as in Step 4.
+This kit needs an **Agentforce-capable** org. Create your own from the Headless 360 **org template `0TTHo0000036iOl`** using your partner tooling — no OrgFarm, no event code.
 
-### Step 2 — Change the admin email to your address
+Use whichever your partner account supports (the one constant is the template ID):
 
-Your org ships with a placeholder admin email — change it so verification/reset mail reaches you.
+- **Environment Hub** (from your Partner Business Org) — the usual home for partner org templates: create a new org from template **`0TTHo0000036iOl`**.
+- **Dev Hub (CLI)** — create the org from template `0TTHo0000036iOl` via your Dev Hub, then it appears in `sf org list`.
 
-1. Setup → Quick Find **"My Personal Information"** → **Personal Information** → edit **Email** → your work email → **Save**.
-2. **Confirm** the verification email Salesforce sends to that address.
+> ℹ️ The exact menu path / flags depend on your partner setup; the constant is the template ID **`0TTHo0000036iOl`** — it carries the Headless 360 configuration. Use whichever org-provisioning tool your team already uses.
 
-### Step 3 — Turn on Agentforce (Einstein)
+Then authenticate the CLI to your new org:
 
-The kit's agent won't deploy until Agentforce is enabled (otherwise you get a cryptic "Not available for deploy").
+```bash
+sf org login web --alias myorg
+```
+
+### Step 2 — Activate Agentforce (Einstein)
+
+Agentforce is **installed** on the template org but must be **activated** — the kit's agent won't deploy until it is (otherwise you get a cryptic "Not available for deploy").
 
 1. Setup → Quick Find **"Agentforce"** (Agentforce / Einstein Setup) → **turn Agentforce ON**.
 2. ⏳ **Wait ~1–2 minutes.** The `Bot` / agent metadata materializes **asynchronously** — deploy too fast and it won't be ready.
 
-### Step 4 — Get the kit and onboard
+> This build does **not** require Data 360 — no extra data-cloud enablement needed.
+
+### Step 3 — Get the kit and onboard
 
 Open your terminal (🪟 Windows: **Git Bash**), go to where you keep code, and clone (run one at a time):
 
@@ -103,17 +110,14 @@ git clone https://github.com/salesforce-misc/h360-sf-workshop.git
 cd h360-sf-workshop
 ```
 ```bash
-sf org login web --alias myorg
-```
-```bash
-./scripts/06-org-onboard.sh --org myorg
+./scripts/onboard.sh --org myorg
 ```
 
-`06-org-onboard.sh` runs the scriptable half in order and is safe to re-run: guards Agentforce-on → deploys the reference build (`02`) + publishes/activates the agent → assigns the permset (`03`) → seeds the 5 hero orders incl. **OR-1003** (`05`) → deploys the in-org React app (`07`) → smoke-tests.
+`onboard.sh` runs the scriptable half in order and is safe to re-run: guards Agentforce-on → deploys the reference build (`steps/deploy`) + publishes/activates the agent → assigns the permset (`steps/assign-perms`) → seeds the 5 hero orders incl. **OR-1003** (`steps/seed-hero-data`) → smoke-tests. (The in-org React app is **not** part of onboarding — you deploy it hands-on in [Module 4](./modules/04-custom-ui.md).)
 
 > A `WARN: permset assign failed` line on a re-run just means it's already assigned — non-fatal; the final "onboarded" line confirms success.
 
-### Step 5 — Smoke test: "am I ready to build?"
+### Step 4 — Smoke test: "am I ready to build?"
 
 ```bash
 ./scripts/smoke.sh --org myorg
@@ -127,7 +131,7 @@ Green **"MECHANICAL: all green"** = build-ready (org reachable · Agentforce on 
 
 ### PowerShell fallback (no bash)
 
-If you're on Windows with **only PowerShell** (no Git Bash/WSL), you can't run `./scripts/*.sh`. Best fix: install [Git for Windows](https://git-scm.com/download/win) and use **Git Bash**. If you truly can't, run the underlying `sf` commands the onboarder wraps, from the repo root, after Steps 1–3 above:
+If you're on Windows with **only PowerShell** (no Git Bash/WSL), you can't run `./scripts/*.sh`. Best fix: install [Git for Windows](https://git-scm.com/download/win) and use **Git Bash**. If you truly can't, run the underlying `sf` commands the onboarder wraps, from the repo root, after Steps 1–2 above (org created + Agentforce activated):
 
 ```
 sf org login web --alias myorg
@@ -148,9 +152,9 @@ sf org assign permset --name Headless360_Workshop_Access --target-org myorg
 Seed the 5 hero orders with the PowerShell port of the seeder:
 
 ```
-.\scripts\05-seed-hero-data.ps1 -Org myorg
+.\scripts\steps\seed-hero-data.ps1 -Org myorg
 ```
 
 Then verify in the browser: the Orders list view shows 5 rows and Agent Builder answers "status of order OR-1003".
 
-> The **in-org React app** (Module 4a, `07-deploy-react-bundle.sh`) needs an `npm` build and has no PowerShell port — run that one step in **Git Bash**, or skip it (it's a Module-4 surface, not core setup). Everything else above works in plain PowerShell. *(Exact command names may drift — confirm against `scripts/` if one errors.)*
+> The **in-org React app** (Module 4a, `deploy-react-app.sh`) needs an `npm` build and has no PowerShell port — run that one step in **Git Bash**, or skip it (it's a Module-4 surface, not core setup). Everything else above works in plain PowerShell. *(Exact command names may drift — confirm against `scripts/` if one errors.)*

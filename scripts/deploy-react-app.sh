@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Module 4b — deploy the native IN-ORG React app (Multi-Framework UI Bundle).
 #
-# This is a SUBSEQUENT/optional deploy step, deliberately NOT part of 02-deploy.sh
+# This is a SUBSEQUENT/optional deploy step, deliberately NOT part of steps/deploy.sh
 # (base capability): the UI Bundle needs an `npm` build first and pulls a large
 # node_modules (the deploy footgun) — node_modules is .forceignore'd (repo root +
 # bundle level) so the scoped deploy below stays clean.
 #
 # Usage:
-#   ./scripts/07-deploy-react-bundle.sh --org <alias>              # npm install + build + deploy
-#   ./scripts/07-deploy-react-bundle.sh --org <alias> --no-build   # deploy only (dist/ already built)
+#   ./scripts/deploy-react-app.sh --org <alias>              # npm install + build + deploy
+#   ./scripts/deploy-react-app.sh --org <alias> --no-build   # deploy only (dist/ already built)
 #
 # Validated build + scoped deploy on a clean trial-EE org 2026-08-15.
 set -uo pipefail
@@ -31,7 +31,7 @@ if [ "$DO_BUILD" -eq 1 ]; then
   #   The chat (Agentforce Conversation Client) binds to the agent by Id, which Vite INLINES at
   #   build time. Skip this and the chat shows "unavailable" (or binds to the wrong org's agent).
   AGENT_ID="$(sf data query --target-org "$ORG" -q "SELECT Id FROM BotDefinition WHERE DeveloperName='$AGENT_API'" --json 2>/dev/null | python3 -c 'import sys,json;r=json.load(sys.stdin)["result"]["records"];print(r[0]["Id"] if r else "")' 2>/dev/null)"
-  [ -n "$AGENT_ID" ] || { fail "could not resolve agent id (DeveloperName=$AGENT_API) — publish the agent first (02-deploy.sh / 06-org-onboard.sh)"; exit 1; }
+  [ -n "$AGENT_ID" ] || { fail "could not resolve agent id (DeveloperName=$AGENT_API) — publish the agent first (steps/deploy.sh / onboard.sh)"; exit 1; }
   echo "VITE_AGENT_ID=$AGENT_ID" > "$BUNDLE/.env.local"
   pass "VITE_AGENT_ID=$AGENT_ID → $BUNDLE/.env.local"
   echo "→ 2/4 building the React bundle (npm install + build)…"

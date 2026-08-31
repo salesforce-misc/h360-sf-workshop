@@ -7,7 +7,7 @@
 **Helper** — this does the deterministic prep (deploy + permset + edition/LEX check) and prints an **exact-values card** for the External Client App below. The ECA itself stays a guided manual step — the Connect teaching moment.
 
 ```bash
-./scripts/04-mcp-connect-setup.sh --org <alias>
+./scripts/connect-mcp.sh --org <alias>
 ```
 
 After you create the ECA, re-run with `--verify` to confirm the org is Connect-ready.

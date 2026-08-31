@@ -9,11 +9,11 @@
 # Idempotent: upserts on the Order_Number__c external id, so re-running is safe.
 # Requires the Headless360_Workshop_Access permset assigned to the running user
 # (Order__c field FLS comes from the permset, not the profile — KNOWN-GAPS T12),
-# so run AFTER 03-assign-perms.sh.
+# so run AFTER steps/assign-perms.sh.
 #
-# Usage: ./scripts/05-seed-hero-data.sh --org <alias>
+# Usage: ./scripts/steps/seed-hero-data.sh --org <alias>
 set -uo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 . "$ROOT/scripts/lib/common.sh"
 ORG="$(resolve_org "$@")"
 [ -n "$ORG" ] || { fail "no org (pass --org <alias> or set ORG_ALIAS)"; exit 1; }
@@ -38,7 +38,7 @@ upsert os Order_Number__c;
 System.debug('Seeded/updated ' + os.size() + ' hero orders');
 AEOF
 
-sf apex run --file "$APEX" --target-org "$ORG" >/dev/null 2>&1 || { fail "seed apex failed — is the permset assigned? run 03-assign-perms.sh first"; exit 1; }
+sf apex run --file "$APEX" --target-org "$ORG" >/dev/null 2>&1 || { fail "seed apex failed — is the permset assigned? run steps/assign-perms.sh first"; exit 1; }
 
 ROWS="$(sf data query --target-org "$ORG" \
   --query "SELECT Order_Number__c FROM Order__c WHERE Order_Number__c LIKE 'OR-100%'" --json 2>/dev/null \

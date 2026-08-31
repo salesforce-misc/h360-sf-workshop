@@ -4,35 +4,35 @@
 
 You are about to **tour** the one reference capability every surface will reach — an Employee Agent + an Apex `@InvocableMethod` Skill over `Order__c` + its in-conversation rich card (CLT). This is "build the capability once" made concrete on screen, and it front-loads the one true ordering gate: the agent is **deployed + published + activated** here, so Connect / React / Slack later just plug in.
 
-> **Your org ships pre-deployed.** The metadata + permset are deployed, the agent is published + activated, the 5 hero records are seeded, and the CLT renders. Steps 1–3 below are that pre-deployment (reference detail); if you self-provision, run `./scripts/06-org-onboard.sh`. In-room, this module is a **guided tour + one hands-on query** (step 4), not a live build.
+> **Your org ships pre-deployed.** The metadata + permset are deployed, the agent is published + activated, the 5 hero records are seeded, and the CLT renders. Steps 1–3 below are that pre-deployment (reference detail); if you self-provision, run `./scripts/onboard.sh`. In-room, this module is a **guided tour + one hands-on query** (step 4), not a live build.
 
 ## Steps
 
 1. **Deploy the metadata.** Run these two, one at a time — first the deploy:
 
    ```bash
-   ./scripts/02-deploy.sh --org <alias>
+   ./scripts/steps/deploy.sh --org <alias>
    ```
 
    Then assign the permset:
 
    ```bash
-   ./scripts/03-assign-perms.sh --org <alias>
+   ./scripts/steps/assign-perms.sh --org <alias>
    ```
 
-   `02-deploy.sh` runs a **3-phase sequence** (metadata → `sf agent publish` + `activate` → permset last — see step 2 for why order matters) and deploys the `Order__c` object, the **Order tab + page layout** (all 5 fields — so the record is viewable in the UI; these were manual clicks in the reference org, now in metadata), the `OrderStatusSkill` `@InvocableMethod` (queries `Order__c` `WITH USER_MODE` → real status + next action + record Id, CLT-eligible), the Slack action, and the permset (Order__c object + field FLS **and** Order-tab visibility).
+   `steps/deploy.sh` runs a **3-phase sequence** (metadata → `sf agent publish` + `activate` → permset last — see step 2 for why order matters) and deploys the `Order__c` object, the **Order tab + page layout** (all 5 fields — so the record is viewable in the UI; these were manual clicks in the reference org, now in metadata), the `OrderStatusSkill` `@InvocableMethod` (queries `Order__c` `WITH USER_MODE` → real status + next action + record Id, CLT-eligible), the Slack action, and the permset (Order__c object + field FLS **and** Order-tab visibility).
 
-   ⚠️ **Deploying the permset does NOT assign it** — `03-assign-perms.sh` assigns it to the running user (assign it to each participant / Run-As user too). The Order__c FLS lives in the permset, so an unassigned user sees no fields / no tab.
+   ⚠️ **Deploying the permset does NOT assign it** — `steps/assign-perms.sh` assigns it to the running user (assign it to each participant / Run-As user too). The Order__c FLS lives in the permset, so an unassigned user sees no fields / no tab.
 
-   **Seed the 5 hero records** (OR-1001..OR-1005) — idempotent; run after `03-assign-perms.sh` so the permset FLS is in place (an unseeded org makes the agent answer "No order matches OR-1003"):
+   **Seed the 5 hero records** (OR-1001..OR-1005) — idempotent; run after `steps/assign-perms.sh` so the permset FLS is in place (an unseeded org makes the agent answer "No order matches OR-1003"):
 
    ```bash
-   ./scripts/05-seed-hero-data.sh --org <alias>
+   ./scripts/steps/seed-hero-data.sh --org <alias>
    ```
 
    The `Order__c` object ships an **All Orders** list view, so the rows appear on the tab immediately.
 
-2. **Deploy + publish + activate the Employee Agent.** **`02-deploy.sh` already does this** (it's a 3-phase script: deploy metadata incl. the `.agent` bundle → `sf agent publish` + `sf agent activate` → deploy the permset last). The commands below are **what the script runs under the hood / how to do it by hand**. The agent ships as an **Agent Script bundle**, not UI-authored (`agentforce-adlc`) — the by-hand sequence, run one at a time.
+2. **Deploy + publish + activate the Employee Agent.** **`steps/deploy.sh` already does this** (it's a 3-phase script: deploy metadata incl. the `.agent` bundle → `sf agent publish` + `sf agent activate` → deploy the permset last). The commands below are **what the script runs under the hood / how to do it by hand**. The agent ships as an **Agent Script bundle**, not UI-authored (`agentforce-adlc`) — the by-hand sequence, run one at a time.
 
    Deploy the authoring bundle:
 

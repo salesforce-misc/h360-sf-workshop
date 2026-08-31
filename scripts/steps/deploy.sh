@@ -12,7 +12,7 @@
 #   3. Deploy the permission set LAST — its <agentAccesses> entry needs the Bot to
 #      exist (created in step 2), and it grants the Order__c FLS the Apex tests need.
 set -uo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 . "$ROOT/scripts/lib/common.sh"
 ORG="$(resolve_org "$@")"
 [ -n "$ORG" ] || { fail "no org (pass --org <alias> or set ORG_ALIAS)"; exit 1; }
@@ -25,7 +25,7 @@ cd "$ROOT/sfdx"
 #    The ECA family (externalClientApps + extlClntApp* OAuth settings) is intentionally EXCLUDED:
 #    the MCP External Client App is org-scoped (its <orgScopedExternalApp> needs the TARGET org's
 #    own Id, which differs per participant), so it can't be a static committed artifact. It's a
-#    per-org Module 3 step — create it via the guided card (04-mcp-connect-setup.sh), never in the
+#    per-org Module 3 step — create it via the guided card (connect-mcp.sh), never in the
 #    base capability deploy. (Validated 2026-08-15: including it fails a clean-org deploy.)
 echo "→ 1/3 deploying metadata (excl. permission set + ECA)…"
 DIRS=""
@@ -46,7 +46,7 @@ sf agent activate --api-name "$AGENT" --target-org "$ORG" --json >/dev/null 2>&1
 # 3) Base permission set LAST — <agentAccesses> now resolves (Bot exists) + grants Order__c FLS + Order tab.
 #    Deploy ONLY Headless360_Workshop_Access — NOT the whole permissionsets/ dir. The React app's
 #    Headless360_React_App permset references the Headless360_OrderStatus CustomApplication, which is
-#    NOT in the base deploy (it ships via 07-deploy-react-bundle.sh); deploying the dir wholesale fails
+#    NOT in the base deploy (it ships via deploy-react-app.sh); deploying the dir wholesale fails
 #    that permset and, being atomic, takes the base permset down with it. (Cold-start regression, fixed 2026-08-16.)
 echo "→ 3/3 deploying the permission set…"
 sf project deploy start --source-dir force-app/main/default/permissionsets/Headless360_Workshop_Access.permissionset-meta.xml --target-org "$ORG" \
@@ -55,5 +55,5 @@ sf project deploy start --source-dir force-app/main/default/permissionsets/Headl
 
 # 4) Assign the permission set to the running user (deploying it does NOT assign it).
 #    Grants Order__c FLS (the Apex tests + the Skill's USER_MODE query need it) + Order tab visibility.
-echo "→ deploy done. Assign the permset:  ./scripts/03-assign-perms.sh --org $ORG"
+echo "→ deploy done. Assign the permset:  ./scripts/steps/assign-perms.sh --org $ORG"
 echo "   (or assign to each participant/run-as user — deploying a permset never auto-assigns it.)"

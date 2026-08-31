@@ -14,8 +14,8 @@ own chat UI, running as the logged-in user, **no tokens** — alongside an `Orde
 **Use the kit script — it handles the per-org agent-id bake, build, and scoped deploy in one step:**
 
 ```bash
-# from the repo root, AFTER the agent is published (scripts/02-deploy.sh):
-./scripts/07-deploy-uibundle.sh --org <alias>
+# from the repo root, AFTER the agent is published (scripts/steps/deploy.sh):
+./scripts/deploy-react-app.sh --org <alias>
 ```
 
 It: (1) queries the org's `BotDefinition` Id → writes `VITE_AGENT_ID` into `.env.local`;
@@ -26,7 +26,7 @@ Metadata API limits — `.forceignore` guards it; `dist/` ships).
 
 Then **activate/tour**: App Launcher → **Headless360 Order Status** → ask the embedded chat
 "status of order OR-1003". A blank chat means `VITE_AGENT_ID` was built for a different org (the app
-renders a visible error saying so) — rerun `07-deploy-uibundle.sh` against *this* org.
+renders a visible error saying so) — rerun `deploy-react-app.sh` against *this* org.
 
 ### Manual equivalent (if you're not using the script)
 

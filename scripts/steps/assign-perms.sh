@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Assign the workshop permission set to the running user.
 set -uo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 . "$ROOT/scripts/lib/common.sh"
 ORG="$(resolve_org "$@")"
 [ -n "$ORG" ] || { fail "no org (pass --org <alias> or set ORG_ALIAS)"; exit 1; }

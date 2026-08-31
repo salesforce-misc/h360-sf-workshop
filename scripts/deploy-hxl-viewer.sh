@@ -3,7 +3,7 @@
 # Mosaic widgets (UiWidgetBundle / lightning__agentforceWidget content) and see each
 # one's structure + raw Mosaic JSON.
 #
-# This is a STANDALONE step (independent of 02-deploy / 07-deploy-*). It is LWC — no npm
+# This is a STANDALONE step (independent of steps/deploy / deploy-react-app). It is LWC — no npm
 # build, no launch-point wiring — chosen deliberately for the HXL viewer.
 #
 # Steps (stops on first hard failure):

@@ -1,6 +1,6 @@
 # Module 0 — Prereqs & Comprehend
 
-**Phase:** 1 · Educate · **Goal:** your org is reachable, tooling is installed, the repo is cloned · **Time:** ~15 min · **Done when:** `00-preflight.sh` reports `sf` present + org reachable.
+**Phase:** 1 · Educate · **Goal:** your org is reachable, tooling is installed, the repo is cloned · **Time:** ~15 min · **Done when:** `preflight.sh` reports `sf` present + your org reachable (once you've claimed it in [setup](../setup.md)).
 
 > **Setup lives in [docs/setup.md](../setup.md).** Do Part 1 (pre-work: Mac/Windows install) and Part 2 (claim org → change email → enable Agentforce → onboard → smoke) there first. This module is the quick in-room env check + the pre-read; it does not repeat the setup steps.
 
@@ -12,7 +12,7 @@
    ```
    Set `ORG_ALIAS=<your-alias>` in `.env`, then:
    ```bash
-   ./scripts/00-preflight.sh --org <your-alias>
+   ./scripts/preflight.sh --org <your-alias>
    ```
    Expected: `sf` present, org reachable, prereq reminders printed.
 
@@ -31,7 +31,7 @@
 | [Headless 360 Decoded Ep. 1](https://www.youtube.com/watch?v=a3sD9YUsk9c&list=PLgIMQe2PKPSLvBYUfZpg5M0eO0jiAKpAu&index=1) | Parker Harris's "why should you ever log in again?" — the executive narrative |
 
 ### 🔴 Checkpoint 0
-`./scripts/00-preflight.sh --org <alias>` passes (sf present, org reachable) and `/plugin` lists both plugins. If preflight can't reach the org, revisit [setup.md Part 2](../setup.md#part-2--make-your-org-yours).
+`./scripts/preflight.sh --org <alias>` passes (sf present, org reachable) and `/plugin` lists both plugins. If preflight can't reach the org, revisit [setup.md Part 2](../setup.md#part-2--make-your-org-yours).
 
 ---
 

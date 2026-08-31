@@ -7,9 +7,9 @@ from a validated workshop org on **2026-08-06**.
 > ⚠️ **Workshop path = the manual guided card (Module 3), NOT this metadata deploy.** The committed
 > `Headless360_MCP_Client` file carries a **scrubbed placeholder** `orgScopedExternalApp` Id
 > (`00D-XXXXXXXXXXXXXX`), which **fails validation on a clean org** (confirmed 2026-08-15) — which is why the
-> ECA is **excluded from the base deploy** (`02-deploy.sh`). The cross-org proof below used a *real* source-org
+> ECA is **excluded from the base deploy** (`steps/deploy.sh`). The cross-org proof below used a *real* source-org
 > Id that auto-re-resolves; to use the metadata path, first set a valid `orgScopedExternalApp` Id (or inject the
-> target org's Id per deploy). For the workshop, run `04-mcp-connect-setup.sh` and follow the card.
+> target org's Id per deploy). For the workshop, run `connect-mcp.sh` and follow the card.
 
 ## Why it matters (the Option-1 finding, 2026-08-06)
 

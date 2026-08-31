@@ -1,6 +1,6 @@
 # Tool reference — install once, verify before the lab
 
-Every tool the lab uses, in one place. Install steps live in [setup.md](../setup.md); this is the reference table + the MCP Workbench install note. `00-preflight.sh` checks `sf` + org reachability; verify the rest yourself.
+Every tool the lab uses, in one place. Install steps live in [setup.md](../setup.md); this is the reference table + the MCP Workbench install note. `preflight.sh` checks `sf` + org reachability; verify the rest yourself.
 
 macOS "easy buttons" (Homebrew / npm) below; the link is the cross-platform fallback. **Install Node first** — the `npm -g` installs depend on it. 🪟 Windows: run these in **Git Bash** (see [setup.md](../setup.md#choose-your-terminal)).
 
@@ -15,7 +15,7 @@ macOS "easy buttons" (Homebrew / npm) below; the link is the cross-platform fall
 | **`sf agent mcp`** (CLI, **preview**) | ships with `sf` | included in the Salesforce CLI — no extra install | `sf agent mcp list` | M3 (optional CLI-native retrieval/verify) |
 | **`sf-flex-estimator`** (skill) | — | already available as a Claude Code skill — invoke `/sf-flex-estimator` | `/sf-flex-estimator` runs | M2 (profile action Flex-credit cost) |
 
-- **Org side** isn't a CLI install — your workshop org ships pre-provisioned (Agentforce + Employee Agent, Hosted MCP + External Client App, Agent API, LEX for the CLT; Slack connection optional — on request).
+- **Org side** isn't a CLI install — the org you create from template `0TTHo0000036iOl` carries Agentforce + Employee Agent, Hosted MCP + External Client App, Agent API, and LEX for the CLT (activate Agentforce per setup; Slack connection optional — bring your own Slack app).
 - **Platform capability versions** (API 64.0+ for CLTs, etc.) move release-to-release — re-check them at workshop time.
 
 ## Installing MCP Workbench (not publicly discoverable)

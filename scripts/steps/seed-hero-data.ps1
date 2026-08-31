@@ -1,5 +1,5 @@
 <#
-  05-seed-hero-data.ps1 — PowerShell port of 05-seed-hero-data.sh for Windows
+  seed-hero-data.ps1 — PowerShell port of seed-hero-data.sh (scripts/steps/) for Windows
   users who don't have Git Bash / WSL.
 
   Seeds the 5 hero Order__c records (OR-1001..OR-1005) the demo/agent depends on.
@@ -10,7 +10,7 @@
   Requires the Headless360_Workshop_Access permset assigned to the running user
   (Order__c field FLS comes from the permset), so run AFTER assigning the permset.
 
-  Usage:  .\scripts\05-seed-hero-data.ps1 -Org <alias>
+  Usage:  .\scripts\steps\seed-hero-data.ps1 -Org <alias>
 #>
 param(
   [Parameter(Mandatory = $true)][string]$Org

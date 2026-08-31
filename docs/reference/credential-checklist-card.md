@@ -25,7 +25,7 @@ Setup → External Client App Manager → `Headless360_MCP_Client` created, then
 
 **Verify** (Claude Code launched from the project dir):
 ```bash
-./scripts/04-mcp-connect-setup.sh --org <alias> --verify
+./scripts/connect-mcp.sh --org <alias> --verify
 # then in Claude:  read order OR-1003 from Salesforce   → returns real data
 ```
 ✅ real read returns (not just a green dot).  ☐ pass

@@ -35,12 +35,12 @@ Prescribed AI tool: **Claude Code** (Agentforce Vibes = documented alternative +
 
 ## Prerequisites
 
-Your workshop org (**OrgFarm template 161**) is pre-configured with: Agentforce + Employee Agent; Hosted MCP + External Client App; 
-Agent API; Lightning Experience for the in-conversation card. A **Slack workspace connection is optional — available on request** (5–7 shared Slack orgs will be available for teams that want to build the Slack surface). The setup process is documented in 
+Your workshop org — created from the Headless 360 **org template `0TTHo0000036iOl`** — carries: Agentforce + Employee Agent; Hosted MCP + External Client App; 
+Agent API; Lightning Experience for the in-conversation card. **Agentforce is installed but must be activated** (see setup). A **Slack workspace connection is optional** — provide your own Slack app if you want to build the Slack surface. The setup process is documented in 
 **[setup.md](./docs/setup.md)**.
 
 - **Salesforce CLI** (`sf`) — https://developer.salesforce.com/tools/salesforcecli
-- **Your own workshop org**, self-provisioned via **OrgFarm** — go to [orgfarm.salesforce.com/signup](https://orgfarm.salesforce.com/signup), enter the workshop **event code** (provided by your facilitator; template 161, pre-configured for Headless 360), then `sf org login web --alias <your-alias>`. Agentforce should already be on; **verify** it before deploying the kit — see [setup.md](./docs/setup.md).
+- **Your own workshop org**, created from the Headless 360 **org template `0TTHo0000036iOl`** via your Partner Business Org (Environment Hub) or Dev Hub — see [setup.md](./docs/setup.md) — then `sf org login web --alias <your-alias>`. **Activate Agentforce** before deploying the kit (it's installed but not active on a fresh template org).
 - **Claude Code**, with the **`agentforce-adlc`** and **`sf-mcp-partner-toolkit`** plugins (installed in [setup.md](./docs/setup.md#add-the-two-claude-code-plugins)).
 - (Agent API surface) **Node.js** to run the `web/` sample client.
 
@@ -49,7 +49,7 @@ is the **[tool reference](./docs/reference/tool-reference.md)**.
 
 ## Quick start
 
-1. **Claim your org** via OrgFarm (event code from your facilitator) — see **[docs/setup.md](./docs/setup.md)** — then sign in the CLI:
+1. **Create your org** from template `0TTHo0000036iOl` (Environment Hub / Dev Hub) — see **[docs/setup.md](./docs/setup.md)** — then sign in the CLI:
    ```bash
    sf org login web --alias <your-alias>
    ```
@@ -57,7 +57,7 @@ is the **[tool reference](./docs/reference/tool-reference.md)**.
    ```bash
    git clone https://github.com/salesforce-misc/h360-sf-workshop.git
    cd h360-sf-workshop
-   ./scripts/06-org-onboard.sh --org <your-alias>    # deploy + publish agent + permset + seed hero data
+   ./scripts/onboard.sh --org <your-alias>    # deploy + publish agent + permset + seed hero data
    ./scripts/smoke.sh --org <your-alias>             # confirm you're build-ready
    ```
 3. Follow **[OVERVIEW.md](./OVERVIEW.md)** module by module — this repo is your authoritative guide.
@@ -86,7 +86,7 @@ All modules are documented in **[the module pages](./docs/modules/)** with 🔴 
   (queries `Order__c`), the Employee Agent as an **Agent Script bundle** (deploy/publish, not UI-authored), the Slack
   custom action + Custom External Credential wiring, the `LightningTypeBundle` CLT, permission set.
 - **`web/`** — a runnable React Agent-API sample client (`node proxy.mjs` backend proxy holds the token + `npm run dev`).
-- **`scripts/`** — `06-org-onboard.sh` (one-command per-org onboarder) + `smoke.sh` (readiness check); the `00`–`05` bootstrap steps it wraps (preflight/deploy/assign/`05-seed-hero-data.sh`), the `04-mcp-connect-setup.sh` Connect helper, + `check.sh` validation harness.
+- **`scripts/`** — `onboard.sh` (one-command per-org onboarder) + `smoke.sh` (readiness check); the `00`–`05` bootstrap steps it wraps (preflight/deploy/assign/`steps/seed-hero-data.sh`), the `connect-mcp.sh` Connect helper, + `check.sh` validation harness.
 - **`config/kit.json`** — mode + partner overlay + surface toggles.
 
 ## Resources (pre-reading)

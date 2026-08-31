@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>HXL Widget Viewer Access</label>
-    <description>Apex + tab + app visibility for the HXL Widget Viewer (LWC view kit). Deployed + assigned by scripts/08-deploy-hxl-widget-viewer.sh, with the app/tab (kept out of the base workshop permset so a clean base deploy never references a not-yet-deployed app).</description>
+    <description>Apex + tab + app visibility for the HXL Widget Viewer (LWC view kit). Deployed + assigned by scripts/deploy-hxl-viewer.sh, with the app/tab (kept out of the base workshop permset so a clean base deploy never references a not-yet-deployed app).</description>
     <hasActivationRequired>false</hasActivationRequired>
     <classAccesses>
         <apexClass>HxlWidgetViewerController</apexClass>
