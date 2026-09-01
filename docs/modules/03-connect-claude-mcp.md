@@ -68,6 +68,20 @@ claude mcp add --transport http --client-id <YOUR_CONSUMER_KEY> --callback-port 
 
 Then `/mcp` → `h360` → **Authenticate**. If auth doesn't complete first try, re-run after a short wait (propagation lag).
 
+> 🔒 **SSO / `OAUTH_AUTHORIZATION_BLOCKED` on auth?** If authenticating throws `OAUTH_AUTHORIZATION_BLOCKED: Cross-org OAuth flows are not supported for this external client app`, your default browser is carrying a cached Salesforce session for the **wrong org**. Force a clean login through a fresh incognito window:
+>
+> ```bash
+> claude mcp login h360 --no-browser
+> ```
+>
+> That **prints the authorization URL** instead of auto-opening it in your logged-in profile. Copy the URL, then open it in a **fresh incognito window** and sign into the **correct** org:
+>
+> ```bash
+> open -na "Google Chrome" --args --incognito "<PASTE_URL_HERE>"
+> ```
+>
+> (macOS/Chrome shown — on any OS, just paste the URL into a new incognito/private window.) Incognito has no Salesforce session, so you get a real login prompt. The callback still returns to `http://localhost:8765/callback` on the same machine and the CLI completes automatically (if it prompts, copy the full redirect URL from the address bar and paste it back). Use your MCP server's registered name — here that's **`h360`**.
+
 **Run one real read** — e.g. `getUserInfo`, or ask Claude to read a record via `sobject-reads`. It should return your identity/data governed by your FLS/sharing. A "connected" indicator alone does **not** prove the flow. ⚠️ Claude prompts you to approve each MCP tool call — approve them (or "always allow" for the session). Expected, not an error.
 
 ### 5. Try the `headless-360` four-tool workflow — the payoff
