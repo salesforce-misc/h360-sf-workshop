@@ -20,7 +20,7 @@ You are about to **tour** the one reference capability every surface will reach 
    ./scripts/steps/assign-perms.sh --org <alias>
    ```
 
-   `steps/deploy.sh` runs a **3-phase sequence** (metadata → `sf agent publish` + `activate` → permset last — see step 2 for why order matters) and deploys the `Order__c` object, the **Order tab + page layout** (all 5 fields — so the record is viewable in the UI; these were manual clicks in the reference org, now in metadata), the `OrderStatusSkill` `@InvocableMethod` (queries `Order__c` `WITH USER_MODE` → real status + next action + record Id, CLT-eligible), the Slack action, and the permset (Order__c object + field FLS **and** Order-tab visibility).
+   `steps/deploy.sh` runs a **3-phase sequence** (metadata → `sf agent publish` + `activate` → permset last — see step 2 for why order matters) and deploys the `Order__c` object, the **H360 Orders tab + page layout** (all 5 fields — so the record is viewable in the UI; these were manual clicks in the reference org, now in metadata), the `OrderStatusSkill` `@InvocableMethod` (queries `Order__c` `WITH USER_MODE` → real status + next action + record Id, CLT-eligible), the Slack action, and the permset (Order__c object + field FLS **and** H360 Orders-tab visibility). The tab appears in the App Launcher as **H360 Orders** (the `H360 Order` object's plural label) — not the standard "Orders" tab.
 
    ⚠️ **Deploying the permset does NOT assign it** — `steps/assign-perms.sh` assigns it to the running user (assign it to each participant / Run-As user too). The Order__c FLS lives in the permset, so an unassigned user sees no fields / no tab.
 
@@ -33,6 +33,12 @@ You are about to **tour** the one reference capability every surface will reach 
    The `Order__c` object ships an **All Orders** list view, so the rows appear on the tab immediately.
 
 2. **Deploy + publish + activate the Employee Agent.** **`steps/deploy.sh` already does this** (it's a 3-phase script: deploy metadata incl. the `.agent` bundle → `sf agent publish` + `sf agent activate` → deploy the permset last). The commands below are **what the script runs under the hood / how to do it by hand**. The agent ships as an **Agent Script bundle**, not UI-authored (`agentforce-adlc`) — the by-hand sequence, run one at a time.
+
+   ⚠️ **Run the by-hand `sf` commands from the `sfdx/` folder.** `sfdx-project.json` lives in `sfdx/`, and `sf project deploy` / `sf agent` need it to find the project — from the repo root they error with "No project found." (The `./scripts/...` wrappers above handle this for you; only the manual commands need it.)
+
+   ```bash
+   cd sfdx
+   ```
 
    Deploy the authoring bundle:
 
@@ -58,13 +64,25 @@ You are about to **tour** the one reference capability every surface will reach 
 
 3. **The in-conversation rich card (CLT) is part of the capability.** The `OrderStatusCard` **`LightningTypeBundle`** (in the same package) is bound to the Skill's Apex output so the agent renders a rich card *inside* the conversation (LEX) — the **native/in-platform surface**, and the on-ramp to the HXL "render everywhere" vision (shown as a demo, not built live). How the binding works + the silent-text-fallback gotcha are in the **Capability internals** below.
 
-4. **Tour it + run one query (the hands-on beat).** Walk the pieces on screen — the **Order tab** (list view + a record with all fields on the page — status, summary, next action), the `OrderStatusSkill` class, the agent's Topic/action wiring, the CLT — then **each participant runs one query** against the live agent:
+4. **Tour it + run one query (the hands-on beat).** Walk the pieces on screen — the **H360 Orders** tab (list view + a record with all fields on the page — status, summary, next action), the `OrderStatusSkill` class, the agent's Topic/action wiring, the CLT — then **each participant runs one query** against the live agent:
+
+   **Interactive chat (recommended for the tour)** — omit `start`; bare `sf agent preview` opens a live prompt you type into:
 
    ```bash
-   sf agent preview start --use-live-actions --authoring-bundle Headless360_Order_Assistant
+   sf agent preview --use-live-actions --authoring-bundle Headless360_Order_Assistant --target-org <alias>
    ```
 
-   Ask *"what's the status of order OR-1003?"* → the agent invokes Get Order Status, returns the **real** record ("carrier exception… Approve rebooking"), and renders the **rich card** in LEX. Now everyone has touched the capability before wiring surfaces to it.
+   Ask *"what's the status of order OR-1003?"* → the agent invokes Get Order Status, returns the **real** record ("carrier exception… Approve rebooking"), and renders the **rich card** in LEX.
+
+   > ⚠️ **`sf agent preview start` does NOT open a chat.** It starts a *programmatic* session, prints a session ID, and exits — Salesforce documents `preview` (interactive) and `preview start` + `preview send` (scripted) as two distinct workflows. If you ran `start`, drive it in send mode with the printed session ID instead of typing:
+   >
+   > ```bash
+   > sf agent preview send --authoring-bundle Headless360_Order_Assistant --session-id <ID-FROM-START> --utterance "What's the status of order OR-1003?" --target-org <alias>
+   > ```
+   >
+   > End it when done — `sf agent preview end --authoring-bundle Headless360_Order_Assistant --session-id <ID> --target-org <alias>` — and list cached sessions with `sf agent preview sessions`.
+
+   Now everyone has touched the capability before wiring surfaces to it.
 
 5. **Profile the cost** with `sf-flex-estimator` — estimate the Flex-credit weight of the action before scaling (shift-left consumption discipline).
 
