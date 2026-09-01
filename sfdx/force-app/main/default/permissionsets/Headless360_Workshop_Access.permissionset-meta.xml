@@ -36,7 +36,7 @@
         <viewAllRecords>true</viewAllRecords>
         <modifyAllRecords>false</modifyAllRecords>
     </objectPermissions>
-    <!-- Order tab visibility — so the assigned user can open the Order tab and see records
+    <!-- H360 Orders tab visibility — so the assigned user can open the H360 Orders tab and see records
          (the Module-2 "tour the capability" beat). Without this the tab is hidden even with object access. -->
     <tabSettings>
         <tab>Order__c</tab>

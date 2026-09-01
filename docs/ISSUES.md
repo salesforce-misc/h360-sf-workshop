@@ -31,7 +31,7 @@ Revealing a Consumer Key/Secret can loop on **identity-verification**, fail **"i
 | `onboard.sh` prints `WARN: permset assign failed` | The permset is **already assigned** (a re-run) — non-fatal; the final "onboarded" line confirms success. |
 | Agent won't deploy — "Not available for deploy" | Agentforce isn't fully on. Enable it (Setup → Agentforce) and **wait ~1–2 min** — `Bot`/agent metadata materializes async. |
 | Agent answers "No order matches OR-1003" | Hero data not seeded — run `./scripts/steps/seed-hero-data.sh --org <alias>` (after the permset is assigned, so FLS is in place). |
-| No fields / no Orders tab | The permset isn't assigned to **this** user — `./scripts/steps/assign-perms.sh` (Order__c FLS + tab visibility live in the permset). |
+| No fields / no H360 Orders tab (App Launcher → "H360 Orders", not the standard "Orders" tab) | The permset isn't assigned to **this** user — `./scripts/steps/assign-perms.sh` (Order__c FLS + tab visibility live in the permset). |
 
 ## MCP / Claude (Module 3 · 3a)
 | Symptom | Cause → fix |
