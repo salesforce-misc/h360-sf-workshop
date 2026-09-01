@@ -78,7 +78,8 @@ fi
 echo
 echo "═══ MANUAL checks (CLI can't verify — tick these in the browser) ═══"
 cat <<EOF
-  [ ] App Launcher → Orders → the All Orders list view shows 5 rows (OR-1003 = Exception)
+  [ ] App Launcher → "H360 Orders" (NOT the standard "Orders" tab) → the All Orders list view shows 5 rows (OR-1003 = Exception)
+        (seeded by onboard.sh / Module 2 — if the mechanical 'hero data' check above is green they exist even if the UI looks empty)
   [ ] Agent Builder → 'Headless360 Order Assistant' opens; ask "status of order OR-1003"
         → returns the real record (carrier exception, Approve rebooking)
   [ ] Module 3 — Hosted MCP + ECA (run ./scripts/connect-mcp.sh --org $ORG):
