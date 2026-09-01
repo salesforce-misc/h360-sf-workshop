@@ -8,11 +8,16 @@
 
 ### 1. Create + install the Slack app
 1. [api.slack.com/apps](https://api.slack.com/apps) → **Create New App → From scratch** → name it and pick **your** workshop workspace.
-2. **OAuth & Permissions → Bot Token Scopes** → add: `chat:write`, `channels:read`, and `chat:write.public` (lets the bot post to any public channel without an invite — recommended).
+2. **OAuth & Permissions → Bot Token Scopes** → add exactly these three:
+   - [ ] `chat:write`
+   - [ ] `channels:read`
+   - [ ] `chat:write.public` — lets the bot post to any public channel without an invite (recommended)
 3. **Install to Workspace** → Allow. Copy the **Bot User OAuth Token** (starts `xoxb-`).
    - 🔴 It must be the **Bot User OAuth Token** (`xoxb-`), not the App-Level token (`xapp-`), Client Secret, or a config token (`xoxe-`). Use the **Copy** button (avoids trailing-newline corruption).
+   - 🔴 This token is a secret: never commit it or paste it into public docs/canvas/repo. If you need to stash it while you work, use a **local untracked scratch file** (already `.gitignore`'d) and delete it when done.
 
 ### 2. 🔴 Validate the token BEFORE touching Salesforce (the fast bisector)
+**[Terminal]** — run from anywhere:
 ```bash
 curl -s -H "Authorization: Bearer <xoxb-...>" https://slack.com/api/auth.test
 ```

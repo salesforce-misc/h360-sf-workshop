@@ -26,9 +26,9 @@ A partner-neutral reference **Employee Agent** with a single `@InvocableMethod` 
 the **hands-on build every partner completes**, then tailors into a POV of their own capability.
 
 **HXL "render everywhere."** The aspirational headline — one experience rendering natively
-across Slack, Agentforce, Claude, mobile. Module 4c has participants **build it as far as it
-goes today**: deploy a real `UiWidgetBundle`, inspect it in the in-org HXL Widget Viewer, and
-render the same definition in the external React side-by-side — no gated dependency. What stays
+across Slack, Agentforce, Claude, mobile. Module 4 has you **build it as far as it
+goes today**: deploy a real `UiWidgetBundle` and inspect it in the in-org HXL Widget Viewer (4b), then
+render the same definition in the external React side-by-side (4c) — no gated dependency. What stays
 **vision** is a platform **auto-render of that widget live in a channel** (ChatGPT/Slack/Agentforce).
 
 Prescribed AI tool: **Claude Code** (Agentforce Vibes = documented alternative + "what's next" demo).
@@ -49,18 +49,25 @@ is the **[tool reference](./docs/reference/tool-reference.md)**.
 
 ## Quick start
 
-1. **Create your org** from template `0TTHo0000036iOl` (Environment Hub / Dev Hub) — see **[docs/setup.md](./docs/setup.md)** — then sign in the CLI:
+This is a **self-guided workshop** — you drive it end to end. Run the steps **in this exact order** (the order matters; skipping the org-prep steps causes the most common failures). Full detail: **[docs/setup.md](./docs/setup.md)**.
+
+1. **Create your org** from template `0TTHo0000036iOl` (Environment Hub / Dev Hub) — see [docs/setup.md](./docs/setup.md).
+2. **First login → switch to Lightning Experience.** If the org opens in Salesforce Classic, switch to Lightning (avatar menu → *Switch to Lightning Experience*). Several later steps break in Classic/aloha nav.
+3. **Verify your user's email.** Setup → Users → your row → set the email to a real inbox you control and confirm it. You'll need a working email later for the External Client App **Contact Email**, emailed verification codes, and revealing the Consumer Key.
+4. **Enable Agentforce.** Setup → Quick Find **"Agentforce"** → turn it **ON**, then **wait ~1–2 min** for it to provision. (The kit's agent will not deploy until Agentforce is on.)
+5. **Sign in the CLI:**
    ```bash
    sf org login web --alias <your-alias>
    ```
-2. **Clone + onboard** (run one at a time):
+6. **Clone + onboard** (run one at a time, **from the repo root**):
    ```bash
    git clone https://github.com/salesforce-misc/h360-sf-workshop.git
    cd h360-sf-workshop
-   ./scripts/onboard.sh --org <your-alias>    # deploy + publish agent + permset + seed hero data
-   ./scripts/smoke.sh --org <your-alias>             # confirm you're build-ready
+   ./scripts/onboard.sh --org <your-alias>    # deploy + publish/activate agent + permset + seed hero data
+   ./scripts/smoke.sh   --org <your-alias>    # confirm you're build-ready
    ```
-3. Follow **[OVERVIEW.md](./OVERVIEW.md)** module by module — this repo is your authoritative guide.
+   > All kit scripts take **`--org <your-alias>`** (`--alias` also works). Alternatively set `ORG_ALIAS` in a copied `.env` and omit the flag — but don't do both; `--org` is the primary, documented form.
+7. Follow **[OVERVIEW.md](./OVERVIEW.md)** module by module — this repo is your authoritative guide. (Module 4b adds one more Setup toggle — *Enable Headless/HXL* — called out at the top of that section.)
 
 ## Workshop flow
 
