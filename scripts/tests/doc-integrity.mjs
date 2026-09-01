@@ -120,6 +120,10 @@ section('D. Tab naming ("H360 Orders", not the standard "Orders")');
 const tabFiles = {
   'docs/modules/02-capability.md': ['**Order tab**', 'the **Order tab**'],
   'scripts/smoke.sh': ['→ Orders →'],
+  'docs/ISSUES.md': ['no Orders tab'],
+  'sfdx/README.md': ['**Order tab', 'Order-tab visibility'],
+  'scripts/steps/deploy.sh': ['+ Order tab', 'Order tab visibility'],
+  'sfdx/force-app/main/default/permissionsets/Headless360_Workshop_Access.permissionset-meta.xml': ['<!-- Order tab', 'open the Order tab'],
 };
 for (const [f, banned] of Object.entries(tabFiles)) {
   const text = readFileSync(join(ROOT, f), 'utf8');
@@ -150,6 +154,14 @@ const guards = [
 for (const [f, re, desc] of guards) {
   if (re.test(readFileSync(join(ROOT, f), 'utf8'))) ok(desc);
   else bad(`${desc} — not found in ${f}`);
+}
+
+// ── F. `sf agent preview start` never presented as an interactive chat ──
+section('F. `sf agent preview start` not presented as interactive');
+for (const f of ['docs/build-and-deploy.md', 'docs/modules/07-fork.md']) {
+  const text = readFileSync(join(ROOT, f), 'utf8');
+  if (/agent preview start/.test(text)) bad(`${f} still runs \`sf agent preview start\` (programmatic, exits) as a chat command`);
+  else ok(`${f} free of \`agent preview start\``);
 }
 
 // ── Summary ─────────────────────────────────────────────────────────────
