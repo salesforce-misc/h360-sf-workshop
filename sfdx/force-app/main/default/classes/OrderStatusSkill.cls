@@ -5,11 +5,17 @@
  *
  * Queries the reference demo object Order__c (by Order_Number__c). Reskin: point the SOQL at your
  * own order/case/shipment object and map the fields — the Request/Response contract stays the same.
+ *
+ * `global` (not `public`): a Salesforce-hosted MCP server auto-exposes only `global`
+ * @InvocableMethod classes as tools — a `public` class must instead be registered in
+ * Setup → API Catalog. The whole chain (class + method + Request/Response/Card + their
+ * @InvocableVariable fields) is promoted so the exposed surface is unambiguous. See
+ * Module 3a — "Add your Apex action".
  */
-public with sharing class OrderStatusSkill {
-    public class Request {
+global with sharing class OrderStatusSkill {
+    global class Request {
         @InvocableVariable(required=true label='Order Number')
-        public String orderNumber;
+        global String orderNumber;
     }
     /**
      * The display shape for the in-conversation rich card (Surface #3, Custom Lightning Type).
@@ -19,31 +25,31 @@ public with sharing class OrderStatusSkill {
      * attach the renderer to (flat outputs cannot be bound; verified against Salesforce's
      * agent-script-recipes customLightningTypes example, 2026-07-23).
      */
-    public class Card {
-        @InvocableVariable public String orderNumber;
-        @InvocableVariable public String status;
-        @InvocableVariable public String owner;
-        @InvocableVariable public String summary;
-        @InvocableVariable public String availableAction;
-        @InvocableVariable public String recordId;
-        @InvocableVariable public Boolean found;
+    global class Card {
+        @InvocableVariable global String orderNumber;
+        @InvocableVariable global String status;
+        @InvocableVariable global String owner;
+        @InvocableVariable global String summary;
+        @InvocableVariable global String availableAction;
+        @InvocableVariable global String recordId;
+        @InvocableVariable global Boolean found;
     }
 
-    public class Response {
-        @InvocableVariable public String orderNumber;
-        @InvocableVariable public String status;      // Processing / Shipped / Delivered / Exception / Not Found
-        @InvocableVariable public String owner;
-        @InvocableVariable public String summary;
-        @InvocableVariable public String availableAction; // the one in-flow action (e.g. "Approve rebooking")
-        @InvocableVariable public String recordId;    // real Order__c Id — used for the "view record" link
-        @InvocableVariable public Boolean found;
+    global class Response {
+        @InvocableVariable global String orderNumber;
+        @InvocableVariable global String status;      // Processing / Shipped / Delivered / Exception / Not Found
+        @InvocableVariable global String owner;
+        @InvocableVariable global String summary;
+        @InvocableVariable global String availableAction; // the one in-flow action (e.g. "Approve rebooking")
+        @InvocableVariable global String recordId;    // real Order__c Id — used for the "view record" link
+        @InvocableVariable global Boolean found;
         // The same data as a single object — this is the CLT-displayable output that renders the
         // rich card in-conversation. The flat fields above stay for the agent's text reasoning.
-        @InvocableVariable public Card card;
+        @InvocableVariable global Card card;
     }
 
     @InvocableMethod(label='Get Order Status' description='Returns status + one available action for an order (reference Skill).')
-    public static List<Response> getStatus(List<Request> requests) {
+    global static List<Response> getStatus(List<Request> requests) {
         // Collect the requested order numbers and query once (bulk-safe).
         Set<String> numbers = new Set<String>();
         for (Request req : requests) {
