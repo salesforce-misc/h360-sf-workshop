@@ -74,8 +74,8 @@ The agent ships as an **Agent Script bundle** (`aiAuthoringBundles/Headless360_O
 sf project deploy start --metadata AiAuthoringBundle:Headless360_Order_Assistant
 sf agent publish authoring-bundle --api-name Headless360_Order_Assistant
 sf agent activate --api-name Headless360_Order_Assistant
-# smoke test in conversation:
-sf agent preview start --use-live-actions --authoring-bundle Headless360_Order_Assistant
+# smoke test in conversation (interactive — omit `start`, which starts a programmatic session and exits):
+sf agent preview --use-live-actions --authoring-bundle Headless360_Order_Assistant
 ```
 Agent type MUST be **Employee** (`AgentforceEmployeeAgent`) — the one type that works for Slack, the Agent API, and CLT.
 No `default_agent_user` on an employee agent (causes "Internal Error" on publish).
