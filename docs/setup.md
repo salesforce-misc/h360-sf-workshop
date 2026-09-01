@@ -84,6 +84,11 @@ Use whichever your partner account supports (the one constant is the template ID
 
 > ℹ️ The exact menu path / flags depend on your partner setup; the constant is the template ID **`0TTHo0000036iOl`** — it carries the Headless 360 configuration. Use whichever org-provisioning tool your team already uses.
 
+**Right after your first login to the org (in the browser), do these two — they're prerequisites for later steps:**
+
+- **Switch to Lightning Experience.** If the org opens in Salesforce Classic, switch via the avatar menu → *Switch to Lightning Experience*. Object views and later UI steps break in Classic/aloha navigation.
+- **Verify your user's email.** Setup → Users → your row → set the **Email** to a real inbox you control and confirm the verification message. You'll need a working email later for the External Client App **Contact Email**, emailed verification codes, and revealing the Consumer Key/Secret.
+
 Then authenticate the CLI to your new org:
 
 ```bash

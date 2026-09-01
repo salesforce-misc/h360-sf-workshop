@@ -15,7 +15,7 @@ This is a directional wrap-up so you can package *your own* forked Skill (Module
 
 2. **Deliver the org config as a post-install Skill** — package the capability, then wire the creds + agent activation *after* install. This is the software-plus-services motion.
 
-3. **Generate the package.** Both commands require a **Dev Hub enabled** first. Run them one at a time:
+3. **Generate the package.** Both commands require a **Dev Hub enabled** first. **[Terminal]** — run them from the `sfdx/` project directory (they need `sfdx-project.json`), one at a time:
 
    ```bash
    sf package create
@@ -32,7 +32,7 @@ You can name the **three buckets** (capability / agent / not-packageable org con
 
 ## Showcase
 
-Each partner demos their forked cross-surface capability: **one capability, reached from every surface** — Claude over MCP, a React app over the Agent API, Slack, and the in-conversation card (+ ChatGPT if built). This is the Dreamforce story — "build the capability once, meet the user on every surface."
+Demo your forked cross-surface capability: **one capability, reached from every surface** — Claude over MCP, a React app over the Agent API, Slack, and the in-conversation card (+ ChatGPT if built). This is the Dreamforce story — "build the capability once, meet the user on every surface."
 
 ## Appendix — Scratch org for local dev (what it can and can't validate)
 
@@ -53,7 +53,7 @@ sf org create scratch --definition-file sfdx/config/project-scratch-def.json \
 
 **What a standard scratch org can NOT host — you need the workshop template org (`0TTHo0000036iOl`):**
 - ❌ **The Agentforce agent** — `AiAuthoringBundle` fails with *"Not available for deploy for this organization,"* so `steps/deploy`'s agent-publish step (Module 2) can't run.
-- ❌ **HXL widgets** — `UiWidgetBundle` fails the same way, so the Module 4c reference-widget deploy (`--metadata-dir reference/hxl-widget-sample`) won't land.
+- ❌ **HXL widgets** — `UiWidgetBundle` fails the same way, so the Module 4b reference-widget deploy (`--metadata-dir reference/hxl-widget-sample`) won't land.
 
 Both are gated features that aren't exposed as scratch-definition `features`; enabling them requires an org
 that ships them (the workshop template `0TTHo0000036iOl`). **Use a scratch org for base/dev iteration; use your

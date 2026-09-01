@@ -2,7 +2,7 @@
 
 **Phase:** 3 · Apply to Partner POC · **Goal:** reskin the reference Skill to your own product capability · **Time:** take-home · **Done when:** your capability answers on your own data
 
-> **This phase is where the workshop pays off** — it's the third act every partner drives toward. Ideate first (which capability, which tier, which surfaces, which distribution path — from your Phase-1 tier mapping), then fork, then package. Modules 7–8 are labeled *optional/take-home* — the round-tables and the fork carry the work forward.
+> **This phase is where the workshop pays off** — it's the third act every partner drives toward. Ideate first (which capability, which tier, which surfaces, which distribution path — from your Phase-1 tier mapping), then fork, then package. Modules 7–8 are labeled *optional/take-home* — the ideation and the fork carry the work forward.
 
 Reskin the reference Skill to **your own capability**: swap `OrderStatusSkill` for your product's equivalent (a status + one action), retarget the surfaces, and swap `config/kit.json` `partner_overlay`. **This is the Dreamforce payoff** — your own cross-surface capability, ready for the showcase. (Do this *before* Package — you package what you've forked.)
 
@@ -14,12 +14,12 @@ Reskin the reference Skill to **your own capability**: swap `OrderStatusSkill` f
 
 3. **Retarget the surfaces.** Point the surfaces you wired in Phase 2 at your new Skill — Claude over MCP, the React app over the Agent API, Slack, the in-conversation card, ChatGPT. The wiring is identical; only the capability behind it changes.
 
-4. **Swap the kit overlay.** Update `config/kit.json` `partner_overlay` so the kit reflects your product's naming and capability instead of the reference order-status one:
+4. **Swap the kit overlay.** Update `config/kit.json` `partner_overlay` so the kit reflects your product's naming and capability instead of the reference order-status one. **[Terminal]** — run from the `sfdx/` project directory:
    ```bash
    sf project deploy start --source-dir force-app --org <alias>
    ```
 
-5. **Verify against your own data.** Run the agent and ask for one of your records — it should invoke your forked Skill, return your product's real status + next action, and render your card:
+5. **Verify against your own data.** Run the agent and ask for one of your records — it should invoke your forked Skill, return your product's real status + next action, and render your card. **[Terminal]** — run from the `sfdx/` project directory:
    ```bash
    sf agent preview start --use-live-actions --authoring-bundle <your-authoring-bundle> --org <alias>
    ```

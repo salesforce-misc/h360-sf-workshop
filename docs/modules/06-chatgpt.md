@@ -16,7 +16,17 @@ The point: reach the same org + Skill from **ChatGPT** exactly as Module 3 reach
    - ChatGPT account is **Plus / Pro / Business / Enterprise / Education** (developer mode is **not** on Free). Prefer a **personal Plus** account — Business/Enterprise workspaces can admin-gate connectors.
    - The org's **`sobject-reads`** standard MCP server is activated (Module 3 already does this). Read-only → its tools carry `readOnlyHint`, so ChatGPT won't prompt per-call write confirmations. Smoother live.
 
-2. **Create an External Client App** for the ChatGPT connect (same recipe family as Module 3's ECA): OAuth ON; scopes **`mcp_api` + `refresh_token`**; **PKCE ON**; issue JWT-based tokens. Copy the **Consumer Key** (= OAuth Client ID). *(⚠️ confirm on your org whether ChatGPT's static-client path also needs the consumer **secret**, or just the key.)*
+2. **Create an External Client App** for the ChatGPT connect (same recipe family as Module 3's ECA). On the **Name** step, also fill in the **Contact Email** field (your verified email). Then, under the **API (Enable OAuth Settings)** section:
+   - [ ] **Enable OAuth** — ON
+   - [ ] Scopes — add exactly these two:
+     - [ ] `mcp_api`
+     - [ ] `refresh_token`
+   - [ ] **PKCE** — ON
+   - [ ] Issue JWT-based tokens
+
+   Copy the **Consumer Key** (= OAuth Client ID). MCP needs the **key only** (no secret). *(⚠️ confirm on your org whether ChatGPT's static-client path also needs the consumer **secret**, or just the key.)*
+   - 🔴 Never commit the Consumer Key or paste it into public docs/canvas/repo. If you need to stash it, use a **local untracked scratch file** (already `.gitignore`'d) and delete it when done.
+   - If the Consumer Key reveal hits an identity-verification loop on a trial/template org, redo the reveal in an **incognito/private window**.
 
 3. **In ChatGPT:** enable **developer mode** (Settings → Connectors/Apps), then **create a new app/connector**.
 
