@@ -6,9 +6,11 @@
 
 > **For partners who already run an external MCP server** — fold *your* service into this org's agent as a governed tool (ideation for "our product as an MCP-callable capability"). This is the **inbound/registry** path, distinct from the Salesforce-hosted `headless-360` ([Module 3](./03-connect-claude-mcp.md)) and the Setup-composed server ([Module 3a](./03a-custom-mcp-server.md)).
 
-**Directional only — this is optional, and several of us will be in the room to help.**
+**Directional only — this is optional.**
 
 ## Steps
+
+> **Where do I run this?** `sf package install` and `sf apex run --file scripts/…` run from the **repo root** (the `scripts/` path is repo-root-relative); raw `sf agent …` commands run from the **`sfdx/` project directory**.
 
 1. **Add a Named Principal** to the existing **External Credential** (your external MCP server's auth).
 

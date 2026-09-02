@@ -31,7 +31,7 @@ This is the **Setup-composed** server (built from actions your org already has) 
    claude mcp add --transport http --client-id <YOUR_CONSUMER_KEY> --callback-port 8765 order-concierge <PASTE_COPIED_SERVER_URL>
    ```
 
-   Then `/mcp` → `order-concierge` → **Authenticate**. Use the **same Consumer Key** from Module 3 (no new credential); paste the URL exactly (no trailing slash). If auth throws an SSO / `OAUTH_AUTHORIZATION_BLOCKED` error, use the **incognito workaround** from [Module 3](./03-connect-claude-mcp.md#4-connect-claude-and-confirm-with-a-real-read) — but run it against **`order-concierge`** (`claude mcp login order-concierge --no-browser`), not `h360`.
+   Then `/mcp` → `order-concierge` → **Authenticate**. Use the **same Consumer Key** from Module 3 (no new credential); paste the URL exactly (no trailing slash). If auth throws an SSO / `OAUTH_AUTHORIZATION_BLOCKED` error, use the **incognito workaround** from [Module 3](./03-connect-claude-mcp.md#4-connect-claude-code) — but run it against **`order-concierge`** (`claude mcp login order-concierge --no-browser`), not `h360`.
 
 6. **Test from Claude** the same four-tool way as M3, but the tools are now **yours**: `discover` on `order-concierge` → `describe` → `dispatch_readonly` → `dispatch`.
 

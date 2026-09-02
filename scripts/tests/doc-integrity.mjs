@@ -127,8 +127,9 @@ const tabFiles = {
 };
 for (const [f, banned] of Object.entries(tabFiles)) {
   const text = readFileSync(join(ROOT, f), 'utf8');
-  if (!text.includes('H360 Orders')) bad(`${f} does not mention the correct tab name "H360 Orders"`);
-  else ok(`${f} names "H360 Orders"`);
+  // "H360 Order" is a substring of both the object name ("H360 Order") and the tab label ("H360 Orders").
+  if (!text.includes('H360 Order')) bad(`${f} does not mention the correct tab name "H360 Order(s)"`);
+  else ok(`${f} names "H360 Order(s)"`);
   for (const b of banned) {
     if (text.includes(b)) bad(`${f} still contains misleading tab reference: ${JSON.stringify(b)}`);
     else ok(`${f} free of ${JSON.stringify(b)}`);
@@ -140,9 +141,10 @@ else bad('docs/setup.md does not mention "H360 Orders"');
 // ── E. Documented-gotcha regression guards ─────────────────────────────
 section('E. Documented-gotcha guards (field-verified fixes stay in the docs)');
 const guards = [
-  ['docs/modules/02-capability.md', /cd sfdx/, 'Module 2 tells you to run by-hand sf commands from sfdx/'],
-  ['docs/modules/02-capability.md', /sf agent preview send/, 'Module 2 documents preview send mode'],
-  ['docs/modules/02-capability.md', /does NOT open a chat/, 'Module 2 warns `preview start` is not interactive'],
+  ['docs/modules/02-capability.md', /cd sfdx/, 'Module 2 runs by-hand sf commands from sfdx/'],
+  ['docs/modules/02-capability.md', /Conversation Preview/, 'Module 2 uses Agent Builder Conversation Preview as the primary OR-1003 path'],
+  ['docs/modules/02-capability.md', /sf agent preview --use-live-actions/, 'Module 2 CLI alternative uses bare interactive `sf agent preview`'],
+  ['docs/modules/02-capability.md', /sf agent preview send/, 'Module 2 documents `preview send` (scripted) mode'],
   ['docs/modules/03-connect-claude-mcp.md', /OAUTH_AUTHORIZATION_BLOCKED/, 'Module 3 documents the SSO block error'],
   ['docs/modules/03-connect-claude-mcp.md', /--no-browser/, 'Module 3 gives the --no-browser recipe'],
   ['docs/modules/03-connect-claude-mcp.md', /incognito/i, 'Module 3 gives the incognito workaround'],
