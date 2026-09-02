@@ -24,10 +24,10 @@ Deploy: `../scripts/steps/deploy.sh --org <alias>` then `../scripts/steps/assign
 - `namedCredentials/` + `externalCredentials/` — `Slack_API` wiring: a **Custom External Credential + bearer bot token**
   (NOT an OIDC Auth Provider). Principal `Slack_Bot_Principal`, secret param `BotToken`. NC needs `allowMergeFieldsInHeader=true`
   + `generateAuthorizationHeader=false`. Secrets are org-config, NOT committed.
-- `tabs/Order__c` + `layouts/Order__c-H360 Order Layout` — the **Order tab + page layout** (all 5 custom fields placed) so
+- `tabs/Order__c` + `layouts/Order__c-H360 Order Layout` — the **H360 Orders tab + page layout** (App Launcher label "H360 Orders"; metadata API name `Order__c`) (all 5 custom fields placed) so
   the record is viewable in the UI for the Module-2 tour. These were **manual clicks in the source org** — now in
   metadata so a fresh org shows the object+fields without hand-config. Tab visibility is granted by the permset (`tabSettings`).
-- `permissionsets/Headless360_Workshop_Access` — Apex + Order__c object/FLS + Order-tab visibility + External Credential principal access.
+- `permissionsets/Headless360_Workshop_Access` — Apex + Order__c object/FLS + H360 Orders-tab visibility + External Credential principal access.
 
 ## Deploy + seed
 1. **One command (recommended):** `../scripts/onboard.sh --org <alias>` — guards Agentforce-enabled, then runs 02 → 03 → 05 → smoke. (Prereq: enable Agentforce on the org first — see [../docs/setup.md](../docs/setup.md).) Or run the steps by hand: `../scripts/steps/deploy.sh --org <alias>` → `../scripts/steps/assign-perms.sh --org <alias>` → `../scripts/steps/seed-hero-data.sh --org <alias>` (02 creates `Order__c` but does **not** seed data — 05 is a separate required step).

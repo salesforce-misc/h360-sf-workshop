@@ -66,10 +66,10 @@ You are about to **tour** the one reference capability every surface will reach 
    **[Terminal, in `sfdx/`]**
    ```bash
    cd sfdx/
-   sf agent preview start --use-live-actions --authoring-bundle Headless360_Order_Assistant --target-org <alias>
+   sf agent preview --use-live-actions --authoring-bundle Headless360_Order_Assistant --target-org <alias>
    ```
 
-   ⚠️ **`sf agent preview` is an in-terminal interactive REPL that needs a real TTY.** It does **not** open a separate window — it prints a Session ID and then waits for you to **type your query at the prompt in the same terminal**. If you run it inside a wrapper / IDE task-runner / non-interactive shell, no input prompt appears and it looks like nothing happened. Type *"what's the status of order OR-1003?"* at the prompt to get the same real record + card. If in doubt, use the UI Conversation Preview above.
+   ⚠️ **`sf agent preview` (no `start`) is an in-terminal interactive REPL that needs a real TTY.** It does **not** open a separate window — it drops you into an interactive prompt in the **same terminal**, where you type your query (*"what's the status of order OR-1003?"*) to get the same real record + card. If you run it inside a wrapper / IDE task-runner / non-interactive shell, no prompt appears and it looks like nothing happened — use the UI Conversation Preview above. (Note: `sf agent preview **start**` is a *different, programmatic* command — it prints a session ID and **exits**, for scripted use with `sf agent preview send --utterance …`; use bare `sf agent preview` for an interactive chat.)
 
    Either way, once OR-1003 returns the real record and card, you've touched the capability before wiring surfaces to it.
 

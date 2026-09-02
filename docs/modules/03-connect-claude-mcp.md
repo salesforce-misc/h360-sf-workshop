@@ -113,6 +113,20 @@ Then, **[inside Claude Code]** — `/mcp` is an in-session slash command, **not*
 
 → select `h360` → **Authenticate**. If auth doesn't complete first try, re-run after a short wait (propagation lag). ⚠️ Claude prompts you to approve each MCP tool call — approve them (or "always allow" for the session). Expected, not an error.
 
+> 🔒 **SSO / `OAUTH_AUTHORIZATION_BLOCKED` on Authenticate?** If the auth step throws `OAUTH_AUTHORIZATION_BLOCKED: Cross-org OAuth flows are not supported for this external client app`, your default browser is carrying a cached Salesforce session for the **wrong org**. Force a clean login through incognito — **[Terminal]**:
+>
+> ```bash
+> claude mcp login h360 --no-browser
+> ```
+>
+> That **prints the authorization URL** instead of auto-opening it in your logged-in profile. Copy the URL, open it in a **fresh incognito window**, and sign into the **correct** org:
+>
+> ```bash
+> open -na "Google Chrome" --args --incognito "<PASTE_URL_HERE>"
+> ```
+>
+> (macOS/Chrome shown — on any OS, paste the URL into a new incognito/private window.) Incognito carries no Salesforce session, so you get a real login prompt; the callback still returns to `http://localhost:8765/callback` on the same machine and the CLI completes automatically. Same standing incognito rule as the Consumer-Key reveal in Step 3.
+
 ### 5. Confirm with a real read — the payoff
 
 **[inside Claude Code]** type exactly:

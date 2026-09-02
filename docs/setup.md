@@ -130,6 +130,8 @@ cd h360-sf-workshop
 
 Green **"MECHANICAL: all green"** = build-ready (org reachable · Agentforce on · 5 hero orders · permset assigned · agent deployed · the real `OrderStatusSkill` returns OR-1003). The command also prints a manual browser checklist. Re-run anytime.
 
+> ℹ️ **On the manual "5 orders in the browser" check — trust the mechanical line, not your eyes.** The hero orders are seeded by `onboard.sh` (Step 3), and you'll also seed/tour them hands-on in **[Module 2](./modules/02-capability.md)**. The mechanical check already gates on them (`5 hero orders`), so a green **MECHANICAL: all green** means they exist — even if you don't spot them in the UI. If the tab looks empty, you're almost always on the standard **"Orders"** tab; the hero data lives on the **"H360 Orders"** tab (App Launcher → "H360 Orders"). If the mechanical line itself flags hero data missing, seeding hasn't run — `./scripts/steps/seed-hero-data.sh --org myorg` (or re-run `./scripts/onboard.sh --org myorg`).
+
 ✅ **Now start the modules → [Module 0](./modules/00-prereqs-and-comprehend.md)** (or jump to [Module 2](./modules/02-capability.md) if your org is already onboarded).
 
 ---
@@ -160,6 +162,6 @@ Seed the 5 hero orders with the PowerShell port of the seeder:
 .\scripts\steps\seed-hero-data.ps1 -Org myorg
 ```
 
-Then verify in the browser: the Orders list view shows 5 rows and Agent Builder answers "status of order OR-1003".
+Then verify in the browser: the **H360 Orders** tab (App Launcher → "H360 Orders", not the standard "Orders" tab) shows 5 rows in the All Orders list view, and Agent Builder answers "status of order OR-1003".
 
 > The **in-org React app** (Module 4a, `deploy-react-app.sh`) needs an `npm` build and has no PowerShell port — run that one step in **Git Bash**, or skip it (it's a Module-4 surface, not core setup). Everything else above works in plain PowerShell. *(Exact command names may drift — confirm against `scripts/` if one errors.)*

@@ -21,7 +21,7 @@ Reskin the reference Skill to **your own capability**: swap `OrderStatusSkill` f
 
 5. **Verify against your own data.** Run the agent and ask for one of your records — it should invoke your forked Skill, return your product's real status + next action, and render your card. **[Terminal]** — run from the `sfdx/` project directory:
    ```bash
-   sf agent preview start --use-live-actions --authoring-bundle <your-authoring-bundle> --org <alias>
+   sf agent preview --use-live-actions --authoring-bundle <your-authoring-bundle> --target-org <alias>
    ```
 
 ### 🔴 Checkpoint 7

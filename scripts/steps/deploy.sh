@@ -43,7 +43,7 @@ sf agent activate --api-name "$AGENT" --target-org "$ORG" --json >/dev/null 2>&1
   && pass "agent activated" \
   || warn "agent activate failed/soft — confirm in Agent Builder (publish must land first)"
 
-# 3) Base permission set LAST — <agentAccesses> now resolves (Bot exists) + grants Order__c FLS + Order tab.
+# 3) Base permission set LAST — <agentAccesses> now resolves (Bot exists) + grants Order__c FLS + H360 Orders tab.
 #    Deploy ONLY Headless360_Workshop_Access — NOT the whole permissionsets/ dir. The React app's
 #    Headless360_React_App permset references the Headless360_OrderStatus CustomApplication, which is
 #    NOT in the base deploy (it ships via deploy-react-app.sh); deploying the dir wholesale fails
@@ -54,6 +54,6 @@ sf project deploy start --source-dir force-app/main/default/permissionsets/Headl
   || { fail "permset deploy failed — the Bot must be published (step 2) before <agentAccesses> resolves"; exit 1; }
 
 # 4) Assign the permission set to the running user (deploying it does NOT assign it).
-#    Grants Order__c FLS (the Apex tests + the Skill's USER_MODE query need it) + Order tab visibility.
+#    Grants Order__c FLS (the Apex tests + the Skill's USER_MODE query need it) + H360 Orders tab visibility.
 echo "→ deploy done. Assign the permset:  ./scripts/steps/assign-perms.sh --org $ORG"
 echo "   (or assign to each participant/run-as user — deploying a permset never auto-assigns it.)"
