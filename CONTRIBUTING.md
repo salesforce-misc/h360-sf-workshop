@@ -1,5 +1,3 @@
-*This is a suggested* `CONTRIBUTING.md` *file template for use by open sourced Salesforce projects. The main goal of this file is to make clear the intents and expectations that end-users may have regarding this project and how/if to engage with it. Adjust as needed (especially look for* `{project_slug}` *which refers to the org and repo name of your project) and remove this paragraph before committing to your repo.*
-
 # Contributing Guide For h360-sf-workshop
 
 This page lists the operational governance model of this project, as well as the recommendations and requirements for how to best contribute to {PROJECT}. We strive to obey these as best as possible. As always, thanks for contributing – we hope these guidelines make it easier and shed some light on our approach and processes.
@@ -9,10 +7,6 @@ This page lists the operational governance model of this project, as well as the
 ## Published but not supported
 
 The intent and goal of open sourcing this project is because it may contain useful or interesting code/concepts that we wish to share with the larger open source community. Although occasional work may be done on it, we will not be looking for or soliciting contributions.
-
-# Getting started
-
-Please join the community on {Here list Slack channels, Email lists, Glitter, Discord, etc... links}. Also please make sure to take a look at the project [roadmap](ROADMAP.md) to see where we are headed.
 
 # Issues, requests & ideas
 
